@@ -1,0 +1,298 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+/* ============================================================================
+   StadiumPulse Design System
+   Premium dark-mode control room aesthetic
+   ============================================================================ */
+
+/* --- Custom Theme (Tailwind v4 CSS-first config) --- */
+@theme {
+  /* Colors — Dark Mode Control Room Palette */
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-elevated: #1e293b;
+  --color-bg-surface: #334155;
+  --color-bg-hover: #475569;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #020617;
+
+  --color-accent: hsl(200 90% 55%);
+  --color-accent-hover: hsl(200 90% 65%);
+  --color-accent-muted: hsl(200 60% 25%);
+
+  /* Severity Colors */
+  --color-severity-low: hsl(145 65% 45%);
+  --color-severity-low-bg: hsl(145 40% 12%);
+  --color-severity-moderate: hsl(40 90% 55%);
+  --color-severity-moderate-bg: hsl(40 50% 12%);
+  --color-severity-high: hsl(15 85% 55%);
+  --color-severity-high-bg: hsl(15 50% 12%);
+  --color-severity-critical: hsl(350 80% 50%);
+  --color-severity-critical-bg: hsl(350 50% 12%);
+
+  /* Borders */
+  --color-border: hsl(220 14% 22%);
+  --color-border-hover: hsl(220 14% 32%);
+
+  /* Glassmorphism */
+  --color-glass: hsl(220 18% 14% / 0.8);
+  --color-glass-border: hsl(220 14% 30% / 0.5);
+
+  /* Typography */
+  --font-family-display: "Outfit", system-ui, sans-serif;
+  --font-family-body: "Inter", system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Spacing */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px hsl(0 0% 0% / 0.3);
+  --shadow-md: 0 4px 12px hsl(0 0% 0% / 0.4);
+  --shadow-lg: 0 8px 32px hsl(0 0% 0% / 0.5);
+  --shadow-glow-accent: 0 0 20px hsl(200 90% 55% / 0.15);
+  --shadow-glow-critical: 0 0 20px hsl(350 80% 50% / 0.2);
+}
+
+/* ============================================================================
+   Base Styles
+   ============================================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-family-body);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ============================================================================
+   Severity Badge Styles — Color + Text + Icon (never color alone)
+   ============================================================================ */
+
+.severity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.severity-badge--low {
+  background-color: var(--color-severity-low-bg);
+  color: var(--color-severity-low);
+  border: 1px solid var(--color-severity-low);
+}
+
+.severity-badge--moderate {
+  background-color: var(--color-severity-moderate-bg);
+  color: var(--color-severity-moderate);
+  border: 1px solid var(--color-severity-moderate);
+}
+
+.severity-badge--high {
+  background-color: var(--color-severity-high-bg);
+  color: var(--color-severity-high);
+  border: 1px solid var(--color-severity-high);
+}
+
+.severity-badge--critical {
+  background-color: var(--color-severity-critical-bg);
+  color: var(--color-severity-critical);
+  border: 1px solid var(--color-severity-critical);
+}
+
+/* ============================================================================
+   Zone Map Colors
+   ============================================================================ */
+
+.zone--low { fill: var(--color-severity-low); fill-opacity: 0.25; stroke: var(--color-severity-low); }
+.zone--moderate { fill: var(--color-severity-moderate); fill-opacity: 0.3; stroke: var(--color-severity-moderate); }
+.zone--high { fill: var(--color-severity-high); fill-opacity: 0.35; stroke: var(--color-severity-high); }
+.zone--critical { fill: var(--color-severity-critical); fill-opacity: 0.4; stroke: var(--color-severity-critical); }
+
+.zone-region {
+  cursor: pointer;
+  stroke-width: 2;
+  transition: fill-opacity 0.3s ease, stroke-width 0.3s ease;
+}
+
+.zone-region:hover {
+  fill-opacity: 0.5;
+  stroke-width: 3;
+}
+
+.zone-region:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   Glassmorphism Card
+   ============================================================================ */
+
+.glass-card {
+  background: var(--color-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================================================
+   Skeleton Loader (no layout shift)
+   ============================================================================ */
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-bg-elevated) 25%, var(--color-bg-surface) 50%, var(--color-bg-elevated) 75%);
+  background-size: 200% 100%;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ============================================================================
+   Micro-animations (respect prefers-reduced-motion)
+   ============================================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-slide-in-right {
+    animation: slideInRight 0.25s ease-out;
+  }
+
+  .animate-slide-in-top {
+    animation: slideInTop 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-pulse-critical {
+    animation: pulseCritical 2s ease-in-out infinite;
+  }
+
+  .animate-count-up {
+    animation: countUp 1.5s ease-out;
+  }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInTop {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulseCritical {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(350 80% 50% / 0.4); }
+  50% { box-shadow: 0 0 20px 4px hsl(350 80% 50% / 0.2); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================================
+   Scrollbar Styling (dark mode)
+   ============================================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-surface);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+/* ============================================================================
+   High Contrast Mode Override
+   ============================================================================ */
+
+[data-high-contrast="true"] {
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cccccc;
+  --color-border: #555555;
+  --color-bg-secondary: #111111;
+  --color-bg-elevated: #1a1a1a;
+}
+
+/* ============================================================================
+   Focus Visible — keyboard accessibility
+   ============================================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   Utility: Screen reader only
+   ============================================================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

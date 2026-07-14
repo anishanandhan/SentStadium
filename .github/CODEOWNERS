@@ -1,0 +1,7 @@
+# These owners will be the default reviewers for pull requests in these directories/files.
+# Order is important; the last matching pattern takes the most precedence.
+
+*       @stadiumpulse-core
+/frontend/  @stadiumpulse-frontend
+/backend/   @stadiumpulse-backend
+/docs/      @stadiumpulse-docs
