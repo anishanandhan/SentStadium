@@ -120,7 +120,7 @@ export function HeroPage() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-[var(--font-family-display)] text-[var(--color-text-primary)] leading-tight mb-6">
             Two systems. One blind spot.
             <br />
-            <span className="bg-gradient-to-r from-[var(--color-accent)] to-[#38bdf8] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-secondary)] bg-clip-text text-transparent">
               StadiumPulse connects them.
             </span>
           </h1>
