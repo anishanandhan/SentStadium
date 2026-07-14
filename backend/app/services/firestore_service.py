@@ -5,13 +5,15 @@ from __future__ import annotations
 import uuid
 from copy import deepcopy
 from datetime import UTC, datetime
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import structlog
 
-from app.config import Settings
 from app.models.alert import Alert, AlertFeed, AlertFilter
 from app.models.zone import ZoneData, ZoneDetail, ZoneHistory, ZoneTrend
+
+if TYPE_CHECKING:
+    from app.config import Settings
 
 logger = structlog.get_logger("app.services.firestore")
 

@@ -8,13 +8,15 @@ from __future__ import annotations
 
 import json
 import random
-from typing import Any, Literal
+from typing import TYPE_CHECKING, Any, Literal
 
 import structlog
 
-from app.config import Settings
 from app.models.reasoning import ReasoningInput, ReasoningOutput
 from app.services.prompt_builder import build_reasoning_prompt
+
+if TYPE_CHECKING:
+    from app.config import Settings
 
 logger = structlog.get_logger("app.services.gemini")
 
@@ -97,11 +99,13 @@ class GeminiService:
             log.info("gemini_output_validated", severity=output.severity)
             return output
         except json.JSONDecodeError as parse_err:
-            log.error("gemini_output_parse_failed", error=str(parse_err), raw=raw_text[:500])
-            raise ValueError(f"Gemini returned unparseable output: {parse_err}") from parse_err
+            log.exception("gemini_output_parse_failed", error=str(parse_err), raw=raw_text[:500])
+            msg = f"Gemini returned unparseable output: {parse_err}"
+            raise ValueError(msg) from parse_err
         except ValueError as validation_err:
-            log.error("gemini_output_validation_failed", error=str(validation_err))
-            raise ValueError(f"Gemini output failed validation: {validation_err}") from validation_err
+            log.exception("gemini_output_validation_failed", error=str(validation_err))
+            msg = f"Gemini output failed validation: {validation_err}"
+            raise ValueError(msg) from validation_err
 
     def _generate_mock_output(self, reasoning_input: ReasoningInput) -> ReasoningOutput:
         """Generate realistic mock reasoning output for local development.

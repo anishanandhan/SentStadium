@@ -12,10 +12,11 @@ Applies defense-in-depth HTTP headers to every response:
 
 from __future__ import annotations
 
-from collections.abc import Awaitable, Callable
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from collections.abc import Awaitable, Callable
+
     from fastapi import Request, Response
 
 # Immutable header map — defined once, applied to every response.

@@ -2,10 +2,14 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 from fastapi import APIRouter, HTTPException, Request
 
 from app.models.zone import ZoneData, ZoneDetail
-from app.services.firestore_service import FirestoreService
+
+if TYPE_CHECKING:
+    from app.services.firestore_service import FirestoreService
 
 router = APIRouter()
 

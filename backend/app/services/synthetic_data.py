@@ -174,7 +174,7 @@ class SyntheticDataGenerator:
                     crowd_density=round(density, 1),
                     heat_index=round(heat, 1),
                     entry_rate=round(entry, 1),
-                )
+                ),
             )
 
         return points
@@ -222,8 +222,8 @@ class SyntheticDataGenerator:
                         "current_occupancy": new_occupancy,
                         "risk_level": new_risk,
                         "last_updated": now,
-                    }
-                )
+                    },
+                ),
             )
 
         return updated

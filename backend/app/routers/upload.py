@@ -105,7 +105,7 @@ async def upload_data(request: Request, file: UploadFile) -> UploadResult:
                     field="row",
                     message=str(exc),
                     value=str(raw_row)[:200],
-                )
+                ),
             )
 
     if not valid_rows:
@@ -190,7 +190,7 @@ def _parse_csv(text: str) -> tuple[list[dict[str, object]], list[UploadValidatio
                     row=0,
                     field="header",
                     message=f"Missing required columns: {', '.join(sorted(missing))}",
-                )
+                ),
             )
             return rows, errors
 
@@ -198,7 +198,7 @@ def _parse_csv(text: str) -> tuple[list[dict[str, object]], list[UploadValidatio
             # Convert numeric fields
             parsed: dict[str, object] = dict(row)
             for numeric_field in ("crowd_density", "heat_index", "entry_rate"):
-                if numeric_field in parsed and parsed[numeric_field]:
+                if parsed.get(numeric_field):
                     try:
                         parsed[numeric_field] = float(str(parsed[numeric_field]))
                     except ValueError:
@@ -208,12 +208,12 @@ def _parse_csv(text: str) -> tuple[list[dict[str, object]], list[UploadValidatio
                                 field=numeric_field,
                                 message=f"Cannot convert '{parsed[numeric_field]}' to number",
                                 value=str(parsed[numeric_field]),
-                            )
+                            ),
                         )
                         continue
 
             for int_field in ("current_occupancy", "capacity"):
-                if int_field in parsed and parsed[int_field]:
+                if parsed.get(int_field):
                     with suppress(ValueError):  # These are optional fields
                         parsed[int_field] = int(str(parsed[int_field]))
 
@@ -244,8 +244,8 @@ def _parse_json(text: str) -> tuple[list[dict[str, object]], list[UploadValidati
         else:
             errors.append(
                 UploadValidationError(
-                    row=0, field="file", message="JSON must be an array of objects or a single object"
-                )
+                    row=0, field="file", message="JSON must be an array of objects or a single object",
+                ),
             )
     except json.JSONDecodeError as exc:
         errors.append(UploadValidationError(row=0, field="file", message=f"Invalid JSON: {exc}"))
@@ -296,7 +296,7 @@ def _rows_to_zones(rows: list[UploadRow]) -> list[ZoneData]:
                 has_hydration_point=False,
                 languages_present=row.languages_present or ["en"],
                 last_updated=row.timestamp,
-            )
+            ),
         )
 
     return zones

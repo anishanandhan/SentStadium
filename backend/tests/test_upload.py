@@ -154,7 +154,7 @@ class TestJSONParsing:
         from app.routers.upload import _parse_json
 
         data = json.dumps(
-            [{"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0}]
+            [{"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0}],
         )
         rows, errors = _parse_json(data)
         assert len(rows) == 1
@@ -171,7 +171,7 @@ class TestJSONParsing:
         from app.routers.upload import _parse_json
 
         data = json.dumps(
-            {"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0}
+            {"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0},
         )
         rows, errors = _parse_json(data)
         assert len(rows) == 1

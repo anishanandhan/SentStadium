@@ -2,12 +2,16 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from typing import TYPE_CHECKING
 
 from fastapi import APIRouter, Request
 
 from app.models.alert import AlertFeed, AlertFilter, AlertSeverity
-from app.services.firestore_service import FirestoreService
+
+if TYPE_CHECKING:
+    from datetime import datetime
+
+    from app.services.firestore_service import FirestoreService
 
 router = APIRouter()
 

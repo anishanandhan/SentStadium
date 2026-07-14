@@ -10,8 +10,10 @@ Constructs structured prompts with:
 from __future__ import annotations
 
 import json
+from typing import TYPE_CHECKING
 
-from app.models.reasoning import ReasoningInput
+if TYPE_CHECKING:
+    from app.models.reasoning import ReasoningInput
 
 SYSTEM_INSTRUCTIONS = """You are StadiumPulse's AI reasoning engine — a safety-critical system for stadium control rooms during live events.
 
@@ -177,7 +179,7 @@ FEW_SHOT_EXAMPLES = [
                     "has_shade": True,
                     "has_hydration_point": True,
                     "entry_rate": 3.0,
-                }
+                },
             ],
             "historical_incidents": [
                 "Family section: slower evacuation pace, stroller congestion at gates",
@@ -217,7 +219,7 @@ def build_reasoning_prompt(reasoning_input: ReasoningInput) -> str:
     # Build the input data section
     input_data = reasoning_input.model_dump(mode="json")
 
-    prompt = f"""{SYSTEM_INSTRUCTIONS}
+    return f"""{SYSTEM_INSTRUCTIONS}
 
 === FEW-SHOT EXAMPLES ===
 {examples_text}
@@ -229,7 +231,6 @@ def build_reasoning_prompt(reasoning_input: ReasoningInput) -> str:
 
 Produce ONLY the JSON output object. The multilingual_alerts field must contain entries for EXACTLY these languages: {json.dumps(reasoning_input.languages_present)}. No other languages, no missing languages."""
 
-    return prompt
 
 
 def get_output_schema_dict() -> dict[str, object]:

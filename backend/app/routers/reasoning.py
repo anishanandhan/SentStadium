@@ -5,14 +5,18 @@ Assembles zone signals, calls Gemini, validates response, stores result.
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Annotated
+
 import structlog
 from fastapi import APIRouter, HTTPException, Path, Request
 
 from app.models.alert import Alert, AlertSeverity
 from app.models.reasoning import NeighborZoneSummary, ReasoningInput, ReasoningOutput
-from app.services.firestore_service import FirestoreService
 from app.services.gemini_service import GeminiService
 from app.services.synthetic_data import SyntheticDataGenerator
+
+if TYPE_CHECKING:
+    from app.services.firestore_service import FirestoreService
 
 logger = structlog.get_logger("app.routers.reasoning")
 
@@ -54,7 +58,7 @@ async def run_reasoning(request: Request, zone_id: str | None = None) -> Reasoni
             result = await _reason_for_zone(z.zone_id, fs, gemini)
             results.append(result)
         except Exception as exc:
-            logger.error("reasoning_failed_for_zone", zone_id=z.zone_id, error=str(exc))
+            logger.exception("reasoning_failed_for_zone", zone_id=z.zone_id, error=str(exc))
 
     if not results:
         raise HTTPException(status_code=500, detail="Reasoning failed for all zones")
@@ -67,7 +71,7 @@ async def run_reasoning(request: Request, zone_id: str | None = None) -> Reasoni
 @router.post("/reason/{zone_id}", response_model=ReasoningOutput)
 async def run_reasoning_for_zone(
     request: Request,
-    zone_id: str = Path(pattern=r"^zone-[a-z0-9-]+$"),
+    zone_id: Annotated[str, Path(pattern=r"^zone-[a-z0-9-]+$")],
 ) -> ReasoningOutput:
     """Run AI reasoning for a specific zone."""
     fs: FirestoreService = request.app.state.firestore

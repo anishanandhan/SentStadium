@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from typing import TYPE_CHECKING
 
 import structlog
 from fastapi import FastAPI, Request
@@ -18,6 +18,9 @@ from app.middleware.security_headers import security_headers_middleware
 from app.routers import alerts, reasoning, upload, zones
 from app.services.firestore_service import FirestoreService
 from app.services.synthetic_data import SyntheticDataGenerator
+
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator
 
 logger = structlog.get_logger("app.main")
 
