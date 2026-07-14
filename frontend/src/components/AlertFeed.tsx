@@ -131,7 +131,9 @@ export function AlertFeed({ initialAlerts }: AlertFeedProps) {
               <li key={alert.alertId} className="animate-slide-in-top">
                 <button
                   onClick={() =>
-                    setExpandedId(expandedId === alert.alertId ? null : alert.alertId)
+                    setExpandedId(
+                      expandedId === alert.alertId ? null : alert.alertId,
+                    )
                   }
                   className="w-full text-left px-4 py-3 hover:bg-[var(--color-bg-hover)] transition-colors bg-transparent border-none cursor-pointer"
                   aria-expanded={expandedId === alert.alertId}
@@ -175,9 +177,11 @@ export function AlertFeed({ initialAlerts }: AlertFeedProps) {
                             Suggested Actions:
                           </p>
                           <ul className="list-disc list-inside space-y-0.5">
-                            {alert.suggestedActions.map((action: string, i: number) => (
-                              <li key={i}>{action}</li>
-                            ))}
+                            {alert.suggestedActions.map(
+                              (action: string, i: number) => (
+                                <li key={i}>{action}</li>
+                              ),
+                            )}
                           </ul>
                         </>
                       )}

@@ -53,6 +53,7 @@ class FirestoreService:
             if not firebase_admin._apps:
                 if settings.firestore_emulator_host:
                     import os
+
                     os.environ["FIRESTORE_EMULATOR_HOST"] = settings.firestore_emulator_host
                     firebase_admin.initialize_app()
                 else:

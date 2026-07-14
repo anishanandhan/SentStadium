@@ -19,7 +19,9 @@ interface ZoneDetailDrawerProps {
 
 export function ZoneDetailDrawer({ zoneId, onClose }: ZoneDetailDrawerProps) {
   const [detail, setDetail] = useState<ZoneDetail | null>(null);
-  const [recommendation, setRecommendation] = useState<ReasoningOutput | null>(null);
+  const [recommendation, setRecommendation] = useState<ReasoningOutput | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [reasoningLoading, setReasoningLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +33,9 @@ export function ZoneDetailDrawer({ zoneId, onClose }: ZoneDetailDrawerProps) {
       const data = await fetchZoneDetail(id);
       setDetail(data);
       if (data.latestRecommendation) {
-        setRecommendation(data.latestRecommendation as unknown as ReasoningOutput);
+        setRecommendation(
+          data.latestRecommendation as unknown as ReasoningOutput,
+        );
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to load zone data");
@@ -73,8 +77,16 @@ export function ZoneDetailDrawer({ zoneId, onClose }: ZoneDetailDrawerProps) {
   const zone = detail?.zone;
   const history = detail?.history;
 
-  const densityData = history?.trends.map((t: ZoneTrend) => ({ value: t.crowdDensity, timestamp: t.timestamp })) || [];
-  const heatData = history?.trends.map((t: ZoneTrend) => ({ value: t.heatIndex, timestamp: t.timestamp })) || [];
+  const densityData =
+    history?.trends.map((t: ZoneTrend) => ({
+      value: t.crowdDensity,
+      timestamp: t.timestamp,
+    })) || [];
+  const heatData =
+    history?.trends.map((t: ZoneTrend) => ({
+      value: t.heatIndex,
+      timestamp: t.timestamp,
+    })) || [];
 
   return (
     <>
@@ -98,7 +110,9 @@ export function ZoneDetailDrawer({ zoneId, onClose }: ZoneDetailDrawerProps) {
             <h2 className="text-lg font-semibold text-[var(--color-text-primary)] font-[var(--font-family-display)]">
               {zone?.zoneName || zoneId}
             </h2>
-            {zone && <SeverityBadge severity={zone.riskLevel} className="mt-1" />}
+            {zone && (
+              <SeverityBadge severity={zone.riskLevel} className="mt-1" />
+            )}
           </div>
           <button
             onClick={onClose}
@@ -148,7 +162,11 @@ export function ZoneDetailDrawer({ zoneId, onClose }: ZoneDetailDrawerProps) {
                   icon={<Sun size={16} />}
                   label="Shade / Hydration"
                   value={`${zone.hasShade ? "☀ Yes" : "✕ No"}`}
-                  sub={zone.hasHydrationPoint ? "💧 Hydration point" : "No hydration"}
+                  sub={
+                    zone.hasHydrationPoint
+                      ? "💧 Hydration point"
+                      : "No hydration"
+                  }
                 />
               </div>
 
@@ -185,7 +203,9 @@ export function ZoneDetailDrawer({ zoneId, onClose }: ZoneDetailDrawerProps) {
               />
             </>
           ) : (
-            <p className="text-sm text-[var(--color-text-muted)]">Zone not found.</p>
+            <p className="text-sm text-[var(--color-text-muted)]">
+              Zone not found.
+            </p>
           )}
         </div>
       </aside>

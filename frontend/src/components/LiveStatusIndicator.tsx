@@ -7,9 +7,21 @@ interface LiveStatusProps {
 }
 
 const STATUS_CONFIG = {
-  live: { label: "Live", dotClass: "bg-[var(--color-severity-low)]", pulse: true },
-  syncing: { label: "Syncing", dotClass: "bg-[var(--color-severity-moderate)]", pulse: true },
-  stale: { label: "Data stale", dotClass: "bg-[var(--color-severity-high)]", pulse: false },
+  live: {
+    label: "Live",
+    dotClass: "bg-[var(--color-severity-low)]",
+    pulse: true,
+  },
+  syncing: {
+    label: "Syncing",
+    dotClass: "bg-[var(--color-severity-moderate)]",
+    pulse: true,
+  },
+  stale: {
+    label: "Data stale",
+    dotClass: "bg-[var(--color-severity-high)]",
+    pulse: false,
+  },
 } as const;
 
 export function LiveStatusIndicator({ status }: LiveStatusProps) {

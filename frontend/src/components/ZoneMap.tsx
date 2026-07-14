@@ -12,7 +12,16 @@ interface ZoneMapProps {
 }
 
 // Stadium layout — hexagonal zone arrangement
-const ZONE_POSITIONS: Record<string, { cx: number; cy: number; rx: number; ry: number; label: { x: number; y: number } }> = {
+const ZONE_POSITIONS: Record<
+  string,
+  {
+    cx: number;
+    cy: number;
+    rx: number;
+    ry: number;
+    label: { x: number; y: number };
+  }
+> = {
   "zone-a": { cx: 300, cy: 80, rx: 120, ry: 55, label: { x: 300, y: 80 } },
   "zone-b": { cx: 520, cy: 200, rx: 80, ry: 90, label: { x: 520, y: 200 } },
   "zone-c": { cx: 300, cy: 340, rx: 120, ry: 55, label: { x: 300, y: 340 } },
@@ -32,7 +41,11 @@ export function ZoneMap({ zones, selectedZoneId, onZoneSelect }: ZoneMapProps) {
   const zonesMap = new Map(zones.map((z) => [z.zoneId, z]));
 
   return (
-    <div className="relative w-full" role="group" aria-label="Interactive stadium zones container">
+    <div
+      className="relative w-full"
+      role="group"
+      aria-label="Interactive stadium zones container"
+    >
       <svg
         viewBox="0 0 600 420"
         className="w-full h-auto"
@@ -134,7 +147,8 @@ export function ZoneMap({ zones, selectedZoneId, onZoneSelect }: ZoneMapProps) {
                   fontFamily="var(--font-family-mono)"
                   pointerEvents="none"
                 >
-                  {zone.crowdDensity.toFixed(0)}% · {zone.heatIndex.toFixed(0)}°C
+                  {zone.crowdDensity.toFixed(0)}% · {zone.heatIndex.toFixed(0)}
+                  °C
                 </text>
               )}
             </g>

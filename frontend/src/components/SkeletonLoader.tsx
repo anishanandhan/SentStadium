@@ -29,7 +29,9 @@ export function Skeleton({
 /** Card-shaped skeleton for loading states */
 export function SkeletonCard({ className = "" }: { className?: string }) {
   return (
-    <div className={`rounded-xl bg-[var(--color-bg-elevated)] p-6 ${className}`}>
+    <div
+      className={`rounded-xl bg-[var(--color-bg-elevated)] p-6 ${className}`}
+    >
       <Skeleton width="40%" height="1.25rem" className="mb-3" />
       <Skeleton width="100%" height="0.875rem" className="mb-2" />
       <Skeleton width="75%" height="0.875rem" className="mb-4" />

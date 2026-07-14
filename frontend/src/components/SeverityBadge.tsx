@@ -11,14 +11,20 @@ interface SeverityBadgeProps {
   className?: string;
 }
 
-const SEVERITY_CONFIG: Record<AlertSeverity, { label: string; icon: typeof CheckCircle }> = {
+const SEVERITY_CONFIG: Record<
+  AlertSeverity,
+  { label: string; icon: typeof CheckCircle }
+> = {
   low: { label: "Low", icon: CheckCircle },
   moderate: { label: "Moderate", icon: Info },
   high: { label: "High", icon: AlertTriangle },
   critical: { label: "Critical", icon: AlertOctagon },
 };
 
-export function SeverityBadge({ severity, className = "" }: SeverityBadgeProps) {
+export function SeverityBadge({
+  severity,
+  className = "",
+}: SeverityBadgeProps) {
   const config = SEVERITY_CONFIG[severity];
   const Icon = config.icon;
 

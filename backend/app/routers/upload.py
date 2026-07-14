@@ -172,6 +172,7 @@ async def reset_data(request: Request) -> UploadResult:
 # Parsing helpers
 # ---------------------------------------------------------------------------
 
+
 def _parse_csv(text: str) -> tuple[list[dict[str, object]], list[UploadValidationError]]:
     """Parse CSV text into row dicts, returning any parse errors."""
     rows: list[dict[str, object]] = []
@@ -219,9 +220,7 @@ def _parse_csv(text: str) -> tuple[list[dict[str, object]], list[UploadValidatio
             rows.append(parsed)
 
     except csv.Error as exc:
-        errors.append(
-            UploadValidationError(row=0, field="file", message=f"CSV parse error: {exc}")
-        )
+        errors.append(UploadValidationError(row=0, field="file", message=f"CSV parse error: {exc}"))
 
     return rows, errors
 
@@ -238,11 +237,7 @@ def _parse_json(text: str) -> tuple[list[dict[str, object]], list[UploadValidati
                 if isinstance(item, dict):
                     rows.append(item)
                 else:
-                    errors.append(
-                        UploadValidationError(
-                            row=i, field="row", message="Expected object, got non-object"
-                        )
-                    )
+                    errors.append(UploadValidationError(row=i, field="row", message="Expected object, got non-object"))
         elif isinstance(data, dict):
             # Single object — wrap in list
             rows.append(data)
@@ -253,9 +248,7 @@ def _parse_json(text: str) -> tuple[list[dict[str, object]], list[UploadValidati
                 )
             )
     except json.JSONDecodeError as exc:
-        errors.append(
-            UploadValidationError(row=0, field="file", message=f"Invalid JSON: {exc}")
-        )
+        errors.append(UploadValidationError(row=0, field="file", message=f"Invalid JSON: {exc}"))
 
     return rows, errors
 

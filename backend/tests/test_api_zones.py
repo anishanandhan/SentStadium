@@ -13,6 +13,7 @@ def test_get_zones(client: TestClient) -> None:
     assert "crowd_density" in zone
     assert "risk_level" in zone
 
+
 def test_get_zone_detail(client: TestClient) -> None:
     # Fetch all zones to get a valid ID
     response = client.get("/api/zones")
@@ -27,6 +28,7 @@ def test_get_zone_detail(client: TestClient) -> None:
     assert "history" in detail
     assert isinstance(detail["history"], dict)
     assert "trends" in detail["history"]
+
 
 def test_get_invalid_zone(client: TestClient) -> None:
     response = client.get("/api/zones/invalid-zone-id")

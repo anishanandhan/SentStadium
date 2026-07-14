@@ -8,16 +8,18 @@ describe("HeroPage", () => {
     render(
       <BrowserRouter>
         <HeroPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
-    expect(screen.getByRole("heading", { name: /Two systems. One blind spot./i })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /Two systems. One blind spot./i }),
+    ).toBeInTheDocument();
   });
 
   it("renders the stat cards from constants", () => {
     render(
       <BrowserRouter>
         <HeroPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
     expect(screen.getByText("110")).toBeInTheDocument();
     const elements = screen.getAllByText(/heat-related medical incidents/i);
@@ -28,11 +30,13 @@ describe("HeroPage", () => {
     render(
       <BrowserRouter>
         <HeroPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
-    const dashLink = screen.getByRole("button", { name: /Open Control Room Dashboard/i });
+    const dashLink = screen.getByRole("button", {
+      name: /Open Control Room Dashboard/i,
+    });
     expect(dashLink).toBeInTheDocument();
-    
+
     // Click the button inside act to prevent router warning
     await act(async () => {
       dashLink.click();

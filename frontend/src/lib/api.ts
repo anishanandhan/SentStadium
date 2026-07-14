@@ -4,19 +4,33 @@
  * Automatically falls back to client-side simulation when backend is unreachable.
  */
 
-import type { ZoneData, ZoneDetail, AlertFeed, AlertFilter, ReasoningOutput, UploadResult } from "../types";
+import type {
+  ZoneData,
+  ZoneDetail,
+  AlertFeed,
+  AlertFilter,
+  ReasoningOutput,
+  UploadResult,
+} from "../types";
 
-const API_BASE = import.meta.env.PROD ? (import.meta.env.VITE_API_URL || "") : (import.meta.env.VITE_API_URL || "http://localhost:8000");
+const API_BASE = import.meta.env.PROD
+  ? import.meta.env.VITE_API_URL || ""
+  : import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
 /** Convert camelCase keys to snake_case for the Python backend. */
-export function toSnakeCase(obj: Record<string, unknown>): Record<string, unknown> {
+export function toSnakeCase(
+  obj: Record<string, unknown>,
+): Record<string, unknown> {
   const result: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(obj)) {
-    const snakeKey = key.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+    const snakeKey = key.replace(
+      /[A-Z]/g,
+      (letter) => `_${letter.toLowerCase()}`,
+    );
     result[snakeKey] = value;
   }
   return result;
@@ -30,7 +44,9 @@ function toCamelCase<T>(obj: unknown): T {
   if (obj !== null && typeof obj === "object") {
     const result: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {
-      const camelKey = key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
+      const camelKey = key.replace(/_([a-z])/g, (_, letter: string) =>
+        letter.toUpperCase(),
+      );
       result[camelKey] = toCamelCase(value);
     }
     return result as T;
@@ -60,7 +76,10 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
     const data: unknown = await response.json();
     return toCamelCase<T>(data);
   } catch (err) {
-    console.warn(`Backend connection failed. Switching to Local Demo Mock Mode. Error:`, err);
+    console.warn(
+      `Backend connection failed. Switching to Local Demo Mock Mode. Error:`,
+      err,
+    );
     isUsingMockFallback = true;
     return handleMockRequest<T>(path, init);
   }
@@ -167,9 +186,21 @@ mockZones.forEach((z) => {
     const time = new Date(Date.now() - minAgo * 60 * 1000).toISOString();
     return {
       timestamp: time,
-      crowdDensity: Math.max(10, Math.min(100, z.crowdDensity - (5 - i) * 3 + Math.floor(Math.random() * 5))),
-      heatIndex: Math.max(20, Math.min(50, z.heatIndex - (5 - i) * 0.5 + Math.random() - 0.5)),
-      entryRate: Math.max(5, z.entryRate - (5 - i) * 10 + Math.floor(Math.random() * 20)),
+      crowdDensity: Math.max(
+        10,
+        Math.min(
+          100,
+          z.crowdDensity - (5 - i) * 3 + Math.floor(Math.random() * 5),
+        ),
+      ),
+      heatIndex: Math.max(
+        20,
+        Math.min(50, z.heatIndex - (5 - i) * 0.5 + Math.random() - 0.5),
+      ),
+      entryRate: Math.max(
+        5,
+        z.entryRate - (5 - i) * 10 + Math.floor(Math.random() * 20),
+      ),
     };
   });
   mockHistory[z.zoneId] = {
@@ -187,23 +218,24 @@ let mockAlerts: any[] = [
     zoneName: "Gate C — South Stand",
     severity: "high",
     summary: "Extreme heat and high crowd density at Gate C.",
-    reasoning: "Heat index has crossed 41°C. Zone C has 0% shade and no hydration points. Egress bottlenecks are compounding.",
+    reasoning:
+      "Heat index has crossed 41°C. Zone C has 0% shade and no hydration points. Egress bottlenecks are compounding.",
     suggestedActions: [
       "Open auxiliary Gate C-2 immediately.",
       "Redirect inbound spectators to shade refuges at Zone D.",
-      "Dispatch mobile hydration team to Zone C perimeter."
+      "Dispatch mobile hydration team to Zone C perimeter.",
     ],
     multilingualAlerts: {
       en: "CRITICAL ALERT: Extreme Heat & Congestion in Zone C. Please redirect to Zone D. Seek water at Zone B/D.",
       es: "ALERTA CRÍTICA: Calor extremo y congestión en Zona C. Diríjase a la Zona D. Busque agua en Zona B/D.",
-      pt: "ALERTA CRÍTICO: Calor extremo e congestionamento na Zona C. Por favor, dirija-se à Zona D. Água disponível na Zona B/D."
+      pt: "ALERTA CRÍTICO: Calor extremo e congestionamento na Zona C. Por favor, dirija-se à Zona D. Água disponível na Zona B/D.",
     },
     confidence: 0.94,
     isStale: false,
     createdAt: new Date(Date.now() - 5 * 60 * 1000).toISOString(),
     resolved: false,
     resolvedAt: null,
-  }
+  },
 ];
 
 function handleMockRequest<T>(path: string, _init?: RequestInit): T {
@@ -215,10 +247,16 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
     // Randomly fluctuate values slightly for realistic realtime effect
     mockZones = mockZones.map((z) => {
       const deltaD = (Math.random() - 0.5) * 2;
-      const newD = Math.max(10, Math.min(100, parseFloat((z.crowdDensity + deltaD).toFixed(1))));
+      const newD = Math.max(
+        10,
+        Math.min(100, parseFloat((z.crowdDensity + deltaD).toFixed(1))),
+      );
       const newOccupancy = Math.floor((newD / 100) * z.capacity);
       const deltaH = (Math.random() - 0.5) * 0.4;
-      const newH = Math.max(20, Math.min(48, parseFloat((z.heatIndex + deltaH).toFixed(1))));
+      const newH = Math.max(
+        20,
+        Math.min(48, parseFloat((z.heatIndex + deltaH).toFixed(1))),
+      );
       const deltaE = Math.floor((Math.random() - 0.5) * 10);
       const newE = Math.max(5, z.entryRate + deltaE);
 
@@ -243,7 +281,11 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
   if (path.startsWith("/api/zones/")) {
     const zoneId = path.substring("/api/zones/".length);
     const zone = mockZones.find((z) => z.zoneId === zoneId) || mockZones[0];
-    const history = mockHistory[zone.zoneId] || { zoneId: zone.zoneId, trends: [], windowMinutes: 60 };
+    const history = mockHistory[zone.zoneId] || {
+      zoneId: zone.zoneId,
+      trends: [],
+      windowMinutes: 60,
+    };
     // Append newest trend
     const newTrend = {
       timestamp: new Date().toISOString(),
@@ -252,9 +294,10 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
       entryRate: zone.entryRate,
     };
     history.trends = [...history.trends.slice(1), newTrend];
-    
+
     // Find latest recommendation
-    const latestRec = mockAlerts.find((a) => a.zoneId === zone.zoneId && !a.resolved) || null;
+    const latestRec =
+      mockAlerts.find((a) => a.zoneId === zone.zoneId && !a.resolved) || null;
 
     return {
       zone,
@@ -297,7 +340,8 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
 
     let targetZone = mockZones[0];
     if (specificZoneId) {
-      targetZone = mockZones.find((z) => z.zoneId === specificZoneId) || mockZones[0];
+      targetZone =
+        mockZones.find((z) => z.zoneId === specificZoneId) || mockZones[0];
     } else {
       // Find the zone with highest risk
       const sorted = [...mockZones].sort((a, b) => {
@@ -307,13 +351,23 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
       targetZone = sorted[0];
     }
 
-    const severity = targetZone.riskLevel === "critical" ? "critical" : (targetZone.riskLevel === "high" ? "high" : (targetZone.riskLevel === "moderate" ? "moderate" : "low"));
-    
+    const severity =
+      targetZone.riskLevel === "critical"
+        ? "critical"
+        : targetZone.riskLevel === "high"
+          ? "high"
+          : targetZone.riskLevel === "moderate"
+            ? "moderate"
+            : "low";
+
     let recommendation = `Continue normal operations in ${targetZone.zoneName}. Telemetry metrics are within safety boundaries.`;
     let reasoning = `Crowd density is ${targetZone.crowdDensity}% and heat index is ${targetZone.heatIndex}°C. Adequate shade and hydration are available.`;
-    let suggestedActions = ["Monitor entrance flow rates.", "Ensure hydration points are fully staffed."];
+    let suggestedActions = [
+      "Monitor entrance flow rates.",
+      "Ensure hydration points are fully staffed.",
+    ];
     let multilingualAlerts: Record<string, string> = {
-      en: `Operations stable in ${targetZone.zoneName}.`
+      en: `Operations stable in ${targetZone.zoneName}.`,
     };
 
     if (severity === "critical" || severity === "high") {
@@ -322,24 +376,24 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
       suggestedActions = [
         "Deploy emergency shade canopy buffers.",
         "Announce audio/visual redirects to adjacent stands.",
-        "Dispatch emergency medical responders to standby positions."
+        "Dispatch emergency medical responders to standby positions.",
       ];
-      
+
       // Multilingual alerts matching zone languages
       if (targetZone.zoneId === "zone-c") {
         multilingualAlerts = {
           en: "CRITICAL: Extreme Heat & Congestion in Zone C. Please redirect to Zone D. Seek shade and water.",
           es: "CRÍTICO: Calor extremo y congestión en Zona C. Diríjase a la Zona D. Busque sombra y agua.",
-          pt: "CRÍTICO: Calor extremo e congestionamento na Zona C. Por favor, dirija-se à Zona D. Procure sombra e água."
+          pt: "CRÍTICO: Calor extremo e congestionamento na Zona C. Por favor, dirija-se à Zona D. Procure sombra e água.",
         };
       } else if (targetZone.zoneId === "zone-b") {
         multilingualAlerts = {
           en: "ALERT: High heat in Zone B. Free water station located in adjacent Gate A.",
-          fr: "ALERTE: Chaleur élevée dans la zone B. Station d'eau gratuite située à la porte A adjacente."
+          fr: "ALERTE: Chaleur élevée dans la zone B. Station d'eau gratuite située à la porte A adjacente.",
         };
       } else {
         multilingualAlerts = {
-          en: `Alert: High crowd density and heat index in ${targetZone.zoneName}.`
+          en: `Alert: High crowd density and heat index in ${targetZone.zoneName}.`,
         };
       }
     }
@@ -351,7 +405,7 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
       reasoning,
       suggestedActions,
       multilingualAlerts,
-      confidence: 0.90,
+      confidence: 0.9,
     };
 
     // Save reasoning output as a new alert
@@ -364,7 +418,7 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
       reasoning,
       suggestedActions,
       multilingualAlerts,
-      confidence: 0.90,
+      confidence: 0.9,
       isStale: false,
       createdAt: new Date().toISOString(),
       resolved: false,
@@ -372,7 +426,10 @@ function handleMockRequest<T>(path: string, _init?: RequestInit): T {
     };
 
     // Prepend new alert
-    mockAlerts = [newAlert, ...mockAlerts.filter(a => a.zoneId !== targetZone.zoneId)];
+    mockAlerts = [
+      newAlert,
+      ...mockAlerts.filter((a) => a.zoneId !== targetZone.zoneId),
+    ];
 
     return reasoningOutput as T;
   }
@@ -431,7 +488,9 @@ export async function fetchZoneDetail(zoneId: string): Promise<ZoneDetail> {
  * @param filters - Optional filters for severity, zone, and time range.
  * @returns A promise resolving to the alert feed.
  */
-export async function fetchAlerts(filters: Partial<AlertFilter> = {}): Promise<AlertFeed> {
+export async function fetchAlerts(
+  filters: Partial<AlertFilter> = {},
+): Promise<AlertFeed> {
   const params = new URLSearchParams();
   if (filters.severity) params.set("severity", filters.severity);
   if (filters.zoneId) params.set("zone_id", filters.zoneId);
@@ -452,7 +511,9 @@ export async function fetchAlerts(filters: Partial<AlertFilter> = {}): Promise<A
  * @param zoneId - Optional zone ID. If omitted, reasons across all zones and returns the most critical.
  * @returns A promise resolving to the AI reasoning output.
  */
-export async function triggerReasoning(zoneId?: string): Promise<ReasoningOutput> {
+export async function triggerReasoning(
+  zoneId?: string,
+): Promise<ReasoningOutput> {
   const path = zoneId ? `/api/reason/${zoneId}` : "/api/reason";
   return apiFetch<ReasoningOutput>(path, { method: "POST" });
 }
@@ -482,7 +543,10 @@ export async function uploadData(file: File): Promise<UploadResult> {
     });
   } catch (networkErr) {
     // Genuine network failure (no connectivity) → fall back to mock
-    console.warn("Upload network error. Switching to Local Demo Mock Mode.", networkErr);
+    console.warn(
+      "Upload network error. Switching to Local Demo Mock Mode.",
+      networkErr,
+    );
     isUsingMockFallback = true;
     return handleMockRequest<UploadResult>("/api/data/upload");
   }
@@ -513,6 +577,9 @@ export async function resetData(): Promise<UploadResult> {
  * Check the health status of the backend API.
  * @returns A promise resolving to the health check status.
  */
-export async function healthCheck(): Promise<{ status: string; service: string }> {
+export async function healthCheck(): Promise<{
+  status: string;
+  service: string;
+}> {
   return apiFetch<{ status: string; service: string }>("/api/health");
 }

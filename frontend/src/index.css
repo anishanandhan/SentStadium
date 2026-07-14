@@ -82,7 +82,12 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-family-display);
   font-weight: 600;
   line-height: 1.2;
@@ -132,15 +137,33 @@ h1, h2, h3, h4, h5, h6 {
    Zone Map Colors
    ============================================================================ */
 
-.zone--low { fill: var(--color-severity-low); fill-opacity: 0.25; stroke: var(--color-severity-low); }
-.zone--moderate { fill: var(--color-severity-moderate); fill-opacity: 0.3; stroke: var(--color-severity-moderate); }
-.zone--high { fill: var(--color-severity-high); fill-opacity: 0.35; stroke: var(--color-severity-high); }
-.zone--critical { fill: var(--color-severity-critical); fill-opacity: 0.4; stroke: var(--color-severity-critical); }
+.zone--low {
+  fill: var(--color-severity-low);
+  fill-opacity: 0.25;
+  stroke: var(--color-severity-low);
+}
+.zone--moderate {
+  fill: var(--color-severity-moderate);
+  fill-opacity: 0.3;
+  stroke: var(--color-severity-moderate);
+}
+.zone--high {
+  fill: var(--color-severity-high);
+  fill-opacity: 0.35;
+  stroke: var(--color-severity-high);
+}
+.zone--critical {
+  fill: var(--color-severity-critical);
+  fill-opacity: 0.4;
+  stroke: var(--color-severity-critical);
+}
 
 .zone-region {
   cursor: pointer;
   stroke-width: 2;
-  transition: fill-opacity 0.3s ease, stroke-width 0.3s ease;
+  transition:
+    fill-opacity 0.3s ease,
+    stroke-width 0.3s ease;
 }
 
 .zone-region:hover {
@@ -171,7 +194,12 @@ h1, h2, h3, h4, h5, h6 {
    ============================================================================ */
 
 .skeleton {
-  background: linear-gradient(90deg, var(--color-bg-elevated) 25%, var(--color-bg-surface) 50%, var(--color-bg-elevated) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-elevated) 25%,
+    var(--color-bg-surface) 50%,
+    var(--color-bg-elevated) 75%
+  );
   background-size: 200% 100%;
   border-radius: var(--radius-sm);
 }
@@ -183,8 +211,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes skeleton-pulse {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* ============================================================================
@@ -214,28 +246,55 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @keyframes slideInRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideInTop {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulseCritical {
-  0%, 100% { box-shadow: 0 0 0 0 hsl(350 80% 50% / 0.4); }
-  50% { box-shadow: 0 0 20px 4px hsl(350 80% 50% / 0.2); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 hsl(350 80% 50% / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px hsl(350 80% 50% / 0.2);
+  }
 }
 
 @keyframes countUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ============================================================================

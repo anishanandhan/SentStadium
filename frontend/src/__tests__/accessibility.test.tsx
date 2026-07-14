@@ -27,19 +27,19 @@ describe("Accessibility Audit (axe-core)", () => {
     const { container } = render(
       <BrowserRouter>
         <HeroPage />
-      </BrowserRouter>
+      </BrowserRouter>,
     );
-    
-    // We test the main page structure. 
-    // SVG animations inside might cause contrast warnings depending on the rule sets, 
+
+    // We test the main page structure.
+    // SVG animations inside might cause contrast warnings depending on the rule sets,
     // but the core structure should pass.
     const results = await axe(container, {
       rules: {
         // Disable specific rules if they flag decorative SVG elements incorrectly,
         // but for this demo, we expect full compliance on standard elements.
-      }
+      },
     });
-    
+
     expect(results).toHaveNoViolations();
   });
 });

@@ -35,8 +35,10 @@ function generateHistoricalData(zones: ZoneData[]) {
     for (const zone of zones) {
       // Generate plausible risk scores based on current values with historical variation
       const baseRisk =
-        (zone.crowdDensity / 100) * 0.5 + (Math.min(zone.heatIndex, 45) / 45) * 0.5;
-      const variation = Math.sin((i * Math.PI) / 12) * 0.15 + (Math.random() - 0.5) * 0.1;
+        (zone.crowdDensity / 100) * 0.5 +
+        (Math.min(zone.heatIndex, 45) / 45) * 0.5;
+      const variation =
+        Math.sin((i * Math.PI) / 12) * 0.15 + (Math.random() - 0.5) * 0.1;
       point[zone.zoneId] = Math.max(0, Math.min(1, baseRisk + variation)) * 100;
     }
     data.push(point);
@@ -83,9 +85,10 @@ export function HistoricalPage() {
     .filter((z) => z.riskLevel === "high" || z.riskLevel === "critical")
     .map((z) => ({
       zone: z.zoneName,
-      suggestion: z.riskLevel === "critical"
-        ? `Immediately deploy 3 additional medical staff and 4 stewards to ${z.zoneName.split("—")[0].trim()}`
-        : `Pre-position 2 additional medical staff at ${z.zoneName.split("—")[0].trim()} by ${new Date(Date.now() + 40 * 60 * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
+      suggestion:
+        z.riskLevel === "critical"
+          ? `Immediately deploy 3 additional medical staff and 4 stewards to ${z.zoneName.split("—")[0].trim()}`
+          : `Pre-position 2 additional medical staff at ${z.zoneName.split("—")[0].trim()} by ${new Date(Date.now() + 40 * 60 * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`,
       severity: z.riskLevel,
     }));
 
@@ -118,7 +121,10 @@ export function HistoricalPage() {
         ) : (
           <>
             {/* Risk Score Chart */}
-            <section className="glass-card p-6" aria-label="Risk score over time">
+            <section
+              className="glass-card p-6"
+              aria-label="Risk score over time"
+            >
               <h2 className="text-lg font-semibold text-[var(--color-text-primary)] mb-4">
                 Risk Score Over Time (Last 6 Hours)
               </h2>
@@ -135,12 +141,23 @@ export function HistoricalPage() {
                           x2="0"
                           y2="1"
                         >
-                          <stop offset="5%" stopColor={ZONE_COLORS[i % ZONE_COLORS.length]} stopOpacity={0.3} />
-                          <stop offset="95%" stopColor={ZONE_COLORS[i % ZONE_COLORS.length]} stopOpacity={0} />
+                          <stop
+                            offset="5%"
+                            stopColor={ZONE_COLORS[i % ZONE_COLORS.length]}
+                            stopOpacity={0.3}
+                          />
+                          <stop
+                            offset="95%"
+                            stopColor={ZONE_COLORS[i % ZONE_COLORS.length]}
+                            stopOpacity={0}
+                          />
                         </linearGradient>
                       ))}
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" />
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="var(--color-border)"
+                    />
                     <XAxis
                       dataKey="time"
                       stroke="var(--color-text-muted)"
@@ -162,10 +179,16 @@ export function HistoricalPage() {
                         fontSize: "12px",
                         color: "var(--color-text-primary)",
                       }}
-                      formatter={(value: any) => [`${Number(value).toFixed(1)}%`, ""]}
+                      formatter={(value: any) => [
+                        `${Number(value).toFixed(1)}%`,
+                        "",
+                      ]}
                     />
                     <Legend
-                      wrapperStyle={{ fontSize: "11px", fontFamily: "var(--font-family-body)" }}
+                      wrapperStyle={{
+                        fontSize: "11px",
+                        fontFamily: "var(--font-family-body)",
+                      }}
                     />
                     {zones.map((zone, i) => (
                       <Area
@@ -185,7 +208,10 @@ export function HistoricalPage() {
             </section>
 
             {/* Predictive Staffing */}
-            <section className="glass-card p-6" aria-label="Predictive staffing suggestions">
+            <section
+              className="glass-card p-6"
+              aria-label="Predictive staffing suggestions"
+            >
               <div className="flex items-center gap-2 mb-4">
                 <Users size={18} className="text-[var(--color-accent)]" />
                 <h2 className="text-lg font-semibold text-[var(--color-text-primary)]">
@@ -194,7 +220,8 @@ export function HistoricalPage() {
               </div>
               {staffingSuggestions.length === 0 ? (
                 <p className="text-sm text-[var(--color-text-muted)]">
-                  All zones within safe parameters — no additional staffing recommended.
+                  All zones within safe parameters — no additional staffing
+                  recommended.
                 </p>
               ) : (
                 <ul className="space-y-3">
@@ -239,7 +266,10 @@ export function HistoricalPage() {
                     </thead>
                     <tbody className="divide-y divide-[var(--color-border)]">
                       {alerts.slice(0, 20).map((alert) => (
-                        <tr key={alert.alertId} className="hover:bg-[var(--color-bg-hover)]">
+                        <tr
+                          key={alert.alertId}
+                          className="hover:bg-[var(--color-bg-hover)]"
+                        >
                           <td className="py-2.5 pr-4 font-mono text-xs text-[var(--color-text-muted)]">
                             {new Date(alert.createdAt).toLocaleTimeString()}
                           </td>

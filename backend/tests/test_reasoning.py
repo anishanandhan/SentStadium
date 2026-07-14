@@ -135,6 +135,7 @@ class TestPromptBuilder:
         lang_sets = []
         for ex in FEW_SHOT_EXAMPLES:
             from typing import cast
+
             langs = set(cast("dict[str, str]", ex["output"]["multilingual_alerts"]).keys())
             lang_sets.append(langs)
 
@@ -148,33 +149,33 @@ class TestGeminiServiceMock:
     """Test mock reasoning output generation."""
 
     @pytest.mark.asyncio
-    async def test_mock_returns_valid_output(
-        self, mock_settings: Settings, sample_input: ReasoningInput
-    ) -> None:
+    async def test_mock_returns_valid_output(self, mock_settings: Settings, sample_input: ReasoningInput) -> None:
         service = GeminiService(mock_settings)
         result = await service.reason(sample_input)
 
         assert isinstance(result, ReasoningOutput)
         assert result.zone_id == "zone-c"
         assert result.severity == "critical"
-        assert result.recommendation == "Immediately dispatch medical team and open auxiliary gates at Gate C — South Stand — density at 82.0% is compounding with 41.0°C heat index, creating acute safety risk for stationary fans."
-        assert result.reasoning == "Gate C — South Stand density is at 82.0% (rising) while heat index has reached 41.0°C (rising). This is a compounding dual-risk event: the pre-event entry surge is creating physical congestion while extreme heat increases medical risk for fans who cannot move freely. Without shade coverage, exposure risk is amplified for all standing fans. Historical pattern: Highest heat exposure zone — shade-seeking migration to Zone A/D at 36°C+."
+        assert (
+            result.recommendation
+            == "Immediately dispatch medical team and open auxiliary gates at Gate C — South Stand — density at 82.0% is compounding with 41.0°C heat index, creating acute safety risk for stationary fans."
+        )
+        assert (
+            result.reasoning
+            == "Gate C — South Stand density is at 82.0% (rising) while heat index has reached 41.0°C (rising). This is a compounding dual-risk event: the pre-event entry surge is creating physical congestion while extreme heat increases medical risk for fans who cannot move freely. Without shade coverage, exposure risk is amplified for all standing fans. Historical pattern: Highest heat exposure zone — shade-seeking migration to Zone A/D at 36°C+."
+        )
         assert "Open auxiliary gates at Gate C — South Stand immediately" in result.suggested_actions
         assert 0.0 <= result.confidence <= 1.0
         assert 0.0 <= result.confidence <= 1.0
 
     @pytest.mark.asyncio
-    async def test_mock_respects_input_languages(
-        self, mock_settings: Settings, sample_input: ReasoningInput
-    ) -> None:
+    async def test_mock_respects_input_languages(self, mock_settings: Settings, sample_input: ReasoningInput) -> None:
         service = GeminiService(mock_settings)
         result = await service.reason(sample_input)
 
         # Should have alerts for exactly the input languages
         for lang in sample_input.languages_present:
-            assert lang in result.multilingual_alerts, (
-                f"Missing alert for language '{lang}'"
-            )
+            assert lang in result.multilingual_alerts, f"Missing alert for language '{lang}'"
 
     @pytest.mark.asyncio
     async def test_mock_high_risk_detection(self, mock_settings: Settings) -> None:
@@ -193,7 +194,10 @@ class TestGeminiServiceMock:
         service = GeminiService(mock_settings)
         result = await service.reason(high_risk_input)
         assert result.severity == "critical"
-        assert result.recommendation == "Immediately dispatch medical team and open auxiliary gates at Test Zone — density at 92.0% is compounding with 42.0°C heat index, creating acute safety risk for stationary fans."
+        assert (
+            result.recommendation
+            == "Immediately dispatch medical team and open auxiliary gates at Test Zone — density at 92.0% is compounding with 42.0°C heat index, creating acute safety risk for stationary fans."
+        )
 
     @pytest.mark.asyncio
     async def test_mock_low_risk_detection(self, mock_settings: Settings) -> None:

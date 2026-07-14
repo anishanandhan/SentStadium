@@ -121,23 +121,27 @@ class TestCSVParsing:
 
     def test_empty_csv(self) -> None:
         from app.routers.upload import _parse_csv
+
         rows, errors = _parse_csv("")
         assert len(rows) == 0
 
     def test_header_only_csv(self) -> None:
         from app.routers.upload import _parse_csv
+
         rows, errors = _parse_csv("zone_id,timestamp,crowd_density,heat_index\n")
         assert len(rows) == 0
         assert len(errors) == 0
 
     def test_missing_required_columns(self) -> None:
         from app.routers.upload import _parse_csv
+
         rows, errors = _parse_csv("zone_id,some_other_field\nzone-a,123\n")
         assert len(errors) > 0
         assert "Missing required columns" in errors[0].message
 
     def test_non_numeric_density(self) -> None:
         from app.routers.upload import _parse_csv
+
         csv_text = "zone_id,timestamp,crowd_density,heat_index\nzone-a,2026-07-10T14:00:00Z,not_a_number,38.0\n"
         rows, errors = _parse_csv(csv_text)
         assert len(errors) > 0
@@ -148,27 +152,33 @@ class TestJSONParsing:
 
     def test_valid_json_array(self) -> None:
         from app.routers.upload import _parse_json
-        data = json.dumps([
-            {"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0}
-        ])
+
+        data = json.dumps(
+            [{"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0}]
+        )
         rows, errors = _parse_json(data)
         assert len(rows) == 1
         assert len(errors) == 0
 
     def test_invalid_json(self) -> None:
         from app.routers.upload import _parse_json
+
         rows, errors = _parse_json("{invalid json")
         assert len(errors) > 0
         assert "Invalid JSON" in errors[0].message
 
     def test_single_object_json(self) -> None:
         from app.routers.upload import _parse_json
-        data = json.dumps({"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0})
+
+        data = json.dumps(
+            {"zone_id": "zone-a", "timestamp": "2026-07-10T14:00:00Z", "crowd_density": 50.0, "heat_index": 35.0}
+        )
         rows, errors = _parse_json(data)
         assert len(rows) == 1
 
     def test_non_object_array_items(self) -> None:
         from app.routers.upload import _parse_json
+
         data = json.dumps([1, 2, 3])
         rows, errors = _parse_json(data)
         assert len(errors) == 3

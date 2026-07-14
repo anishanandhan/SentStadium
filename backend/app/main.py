@@ -25,6 +25,7 @@ logger = structlog.get_logger("app.main")
 # Lifespan: start-up / shutdown
 # ---------------------------------------------------------------------------
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Application lifespan — initialize services, seed data on startup."""
@@ -55,6 +56,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 # ---------------------------------------------------------------------------
 # App factory
 # ---------------------------------------------------------------------------
+
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     """Create and configure the FastAPI application."""

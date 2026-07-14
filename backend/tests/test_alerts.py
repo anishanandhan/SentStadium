@@ -17,6 +17,7 @@ def firestore() -> FirestoreService:
 
 def _make_alert(zone_id: str, severity: str, summary: str = "Test alert") -> Alert:
     import uuid
+
     return Alert(
         alert_id=f"alert-{uuid.uuid4().hex[:8]}",
         zone_id=zone_id,

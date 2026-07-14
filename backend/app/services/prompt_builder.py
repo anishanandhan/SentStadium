@@ -51,10 +51,29 @@ FEW_SHOT_EXAMPLES = [
             "languages_present": ["en", "es"],
             "time_to_event": "15 min to kickoff",
             "neighboring_zones": [
-                {"zone_id": "zone-c", "zone_name": "Gate C — South Stand", "crowd_density": 45.0, "heat_index": 40.1, "has_shade": False, "has_hydration_point": False, "entry_rate": 12.0},
-                {"zone_id": "zone-e", "zone_name": "Gate E — VIP Concourse", "crowd_density": 30.0, "heat_index": 32.0, "has_shade": True, "has_hydration_point": True, "entry_rate": 5.0}
+                {
+                    "zone_id": "zone-c",
+                    "zone_name": "Gate C — South Stand",
+                    "crowd_density": 45.0,
+                    "heat_index": 40.1,
+                    "has_shade": False,
+                    "has_hydration_point": False,
+                    "entry_rate": 12.0,
+                },
+                {
+                    "zone_id": "zone-e",
+                    "zone_name": "Gate E — VIP Concourse",
+                    "crowd_density": 30.0,
+                    "heat_index": 32.0,
+                    "has_shade": True,
+                    "has_hydration_point": True,
+                    "entry_rate": 5.0,
+                },
             ],
-            "historical_incidents": ["Receives overflow from Zone C during heat events", "Shade availability makes this a natural refuge — plan for surge capacity"]
+            "historical_incidents": [
+                "Receives overflow from Zone C during heat events",
+                "Shade availability makes this a natural refuge — plan for surge capacity",
+            ],
         },
         "output": {
             "zone_id": "zone-d",
@@ -64,14 +83,14 @@ FEW_SHOT_EXAMPLES = [
             "suggested_actions": [
                 "Redirect incoming fans from Gate C corridor to Gate E via concourse signage",
                 "Pre-position 2 additional stewards at Gate D entry",
-                "Activate additional hydration station at Gate D overflow area"
+                "Activate additional hydration station at Gate D overflow area",
             ],
             "multilingual_alerts": {
                 "en": "Gate D is experiencing high crowd density due to heat conditions. Please proceed to Gate E for faster entry. Hydration stations available at Gate E.",
-                "es": "La Puerta D tiene alta densidad de público debido al calor. Diríjase a la Puerta E para un ingreso más rápido. Estaciones de hidratación disponibles en la Puerta E."
+                "es": "La Puerta D tiene alta densidad de público debido al calor. Diríjase a la Puerta E para un ingreso más rápido. Estaciones de hidratación disponibles en la Puerta E.",
             },
-            "confidence": 0.87
-        }
+            "confidence": 0.87,
+        },
     },
     # Example 2: Concurrent heat + entry bottleneck (en + ar + fr)
     {
@@ -90,10 +109,29 @@ FEW_SHOT_EXAMPLES = [
             "languages_present": ["en", "ar", "fr"],
             "time_to_event": "5 min to kickoff",
             "neighboring_zones": [
-                {"zone_id": "zone-b", "zone_name": "Gate B — East Wing", "crowd_density": 60.0, "heat_index": 41.5, "has_shade": False, "has_hydration_point": True, "entry_rate": 20.0},
-                {"zone_id": "zone-f", "zone_name": "Gate F — Family Section", "crowd_density": 55.0, "heat_index": 38.0, "has_shade": True, "has_hydration_point": True, "entry_rate": 15.0}
+                {
+                    "zone_id": "zone-b",
+                    "zone_name": "Gate B — East Wing",
+                    "crowd_density": 60.0,
+                    "heat_index": 41.5,
+                    "has_shade": False,
+                    "has_hydration_point": True,
+                    "entry_rate": 20.0,
+                },
+                {
+                    "zone_id": "zone-f",
+                    "zone_name": "Gate F — Family Section",
+                    "crowd_density": 55.0,
+                    "heat_index": 38.0,
+                    "has_shade": True,
+                    "has_hydration_point": True,
+                    "entry_rate": 15.0,
+                },
             ],
-            "historical_incidents": ["Shade-seeking spike observed when heat index exceeds 35°C", "Entry bottleneck during pre-match rush (T-30 min)"]
+            "historical_incidents": [
+                "Shade-seeking spike observed when heat index exceeds 35°C",
+                "Entry bottleneck during pre-match rush (T-30 min)",
+            ],
         },
         "output": {
             "zone_id": "zone-a",
@@ -104,15 +142,15 @@ FEW_SHOT_EXAMPLES = [
                 "Open auxiliary Gate A-2 immediately to double entry throughput",
                 "Dispatch medical team to Gate A entry queue — stationary fans in 41°C heat",
                 "Redirect late-arriving fans to Gate F via PA announcement and digital signage",
-                "Deploy mobile hydration cart to Gate A queue line"
+                "Deploy mobile hydration cart to Gate A queue line",
             ],
             "multilingual_alerts": {
                 "en": "URGENT: Gate A entry is at capacity. If you are arriving now, please use Gate F for faster entry. Medical assistance available at Gate A.",
                 "ar": "عاجل: بوابة A ممتلئة. إذا كنت تصل الآن، يرجى استخدام بوابة F للدخول بشكل أسرع. المساعدة الطبية متوفرة عند بوابة A.",
-                "fr": "URGENT : L'entrée Porte A est saturée. Si vous arrivez maintenant, veuillez utiliser la Porte F pour un accès plus rapide. Assistance médicale disponible à la Porte A."
+                "fr": "URGENT : L'entrée Porte A est saturée. Si vous arrivez maintenant, veuillez utiliser la Porte F pour un accès plus rapide. Assistance médicale disponible à la Porte A.",
             },
-            "confidence": 0.94
-        }
+            "confidence": 0.94,
+        },
     },
     # Example 3: Low-risk monitoring state (en + de)
     {
@@ -131,9 +169,20 @@ FEW_SHOT_EXAMPLES = [
             "languages_present": ["en", "de"],
             "time_to_event": "halftime",
             "neighboring_zones": [
-                {"zone_id": "zone-e", "zone_name": "Gate E — VIP Concourse", "crowd_density": 28.0, "heat_index": 31.0, "has_shade": True, "has_hydration_point": True, "entry_rate": 3.0}
+                {
+                    "zone_id": "zone-e",
+                    "zone_name": "Gate E — VIP Concourse",
+                    "crowd_density": 28.0,
+                    "heat_index": 31.0,
+                    "has_shade": True,
+                    "has_hydration_point": True,
+                    "entry_rate": 3.0,
+                }
             ],
-            "historical_incidents": ["Family section: slower evacuation pace, stroller congestion at gates", "Children more vulnerable to heat — lower threshold for medical alerts"]
+            "historical_incidents": [
+                "Family section: slower evacuation pace, stroller congestion at gates",
+                "Children more vulnerable to heat — lower threshold for medical alerts",
+            ],
         },
         "output": {
             "zone_id": "zone-f",
@@ -142,15 +191,15 @@ FEW_SHOT_EXAMPLES = [
             "reasoning": "Crowd density is at 35% with a gradual upward trend (+5 points over 15 min), well within capacity. Heat index at 33°C is below the 35°C family-section alert threshold but trending upward slowly. This is a halftime period, so density may increase as families move to concessions and restrooms — the historical pattern shows stroller congestion at gates during these transitions. Current conditions do not require intervention but warrant continued monitoring, especially as heat index approaches the 35°C threshold where children become more vulnerable.",
             "suggested_actions": [
                 "Monitor heat index — prepare for family-specific alerts if trend continues above 35°C",
-                "Ensure stroller-accessible pathways remain clear during halftime transition"
+                "Ensure stroller-accessible pathways remain clear during halftime transition",
             ],
             "multilingual_alerts": {
                 "en": "Gate F — Family Section: All clear. Hydration stations and shaded seating available. Stay hydrated!",
-                "de": "Tor F — Familienbereich: Alles in Ordnung. Trinkwasserstationen und schattige Sitzplätze verfügbar. Bleiben Sie hydriert!"
+                "de": "Tor F — Familienbereich: Alles in Ordnung. Trinkwasserstationen und schattige Sitzplätze verfügbar. Bleiben Sie hydriert!",
             },
-            "confidence": 0.82
-        }
-    }
+            "confidence": 0.82,
+        },
+    },
 ]
 
 
@@ -186,4 +235,5 @@ Produce ONLY the JSON output object. The multilingual_alerts field must contain 
 def get_output_schema_dict() -> dict[str, object]:
     """Return the ReasoningOutput schema as a dict for Gemini's response_schema parameter."""
     from app.models.reasoning import ReasoningOutput
+
     return ReasoningOutput.model_json_schema()

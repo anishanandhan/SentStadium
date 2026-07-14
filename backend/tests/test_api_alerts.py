@@ -9,11 +9,13 @@ def test_get_alerts(client: TestClient) -> None:
     assert "total_count" in feed
     assert "has_next" in feed
 
+
 def test_get_alerts_pagination(client: TestClient) -> None:
     response = client.get("/api/alerts?page=1&page_size=2")
     assert response.status_code == 200
     feed = response.json()
     assert len(feed["alerts"]) <= 2
+
 
 def test_get_alerts_filtering(client: TestClient) -> None:
     response = client.get("/api/alerts?severity=high&zone_id=zone-a")

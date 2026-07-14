@@ -155,7 +155,8 @@ export const SOURCES: Source[] = [
   {
     claim:
       "Houston heat-related medical incidents (110 in one day, Fan Festival opening day)",
-    organization: "Fox Weather, reporting on Houston Office of Emergency Management data",
+    organization:
+      "Fox Weather, reporting on Houston Office of Emergency Management data",
   },
   {
     claim:
@@ -166,7 +167,8 @@ export const SOURCES: Source[] = [
   {
     claim:
       "Kansas City gate bottleneck (2 of 7 entrances open, hours-long backups, missed kickoffs)",
-    organization: "KCUR (Kansas City NPR affiliate), reporting on KC2026 official statement",
+    organization:
+      "KCUR (Kansas City NPR affiliate), reporting on KC2026 official statement",
   },
   {
     claim:

@@ -20,14 +20,54 @@ import { uploadData, resetData } from "@/lib/api";
 import type { UploadResult, UploadValidationError } from "@/types";
 
 const EXPECTED_SCHEMA = [
-  { field: "zone_id", type: "string", required: true, description: "Unique zone identifier (e.g., 'zone-a')" },
-  { field: "timestamp", type: "ISO 8601", required: true, description: "Reading timestamp (e.g., '2026-07-10T14:30:00Z')" },
-  { field: "crowd_density", type: "number (0-100)", required: true, description: "Current crowd density percentage" },
-  { field: "heat_index", type: "number", required: true, description: "Heat index in Celsius" },
-  { field: "entry_rate", type: "number (≥0)", required: false, description: "Fans entering per minute" },
-  { field: "current_occupancy", type: "integer", required: false, description: "Current fan count in zone" },
-  { field: "capacity", type: "integer", required: false, description: "Maximum zone capacity" },
-  { field: "languages_present", type: "string[]", required: false, description: "ISO 639-1 language codes (e.g., ['en', 'es'])" },
+  {
+    field: "zone_id",
+    type: "string",
+    required: true,
+    description: "Unique zone identifier (e.g., 'zone-a')",
+  },
+  {
+    field: "timestamp",
+    type: "ISO 8601",
+    required: true,
+    description: "Reading timestamp (e.g., '2026-07-10T14:30:00Z')",
+  },
+  {
+    field: "crowd_density",
+    type: "number (0-100)",
+    required: true,
+    description: "Current crowd density percentage",
+  },
+  {
+    field: "heat_index",
+    type: "number",
+    required: true,
+    description: "Heat index in Celsius",
+  },
+  {
+    field: "entry_rate",
+    type: "number (≥0)",
+    required: false,
+    description: "Fans entering per minute",
+  },
+  {
+    field: "current_occupancy",
+    type: "integer",
+    required: false,
+    description: "Current fan count in zone",
+  },
+  {
+    field: "capacity",
+    type: "integer",
+    required: false,
+    description: "Maximum zone capacity",
+  },
+  {
+    field: "languages_present",
+    type: "string[]",
+    required: false,
+    description: "ISO 639-1 language codes (e.g., ['en', 'es'])",
+  },
 ];
 
 export function UploadPage() {
@@ -98,8 +138,8 @@ export function UploadPage() {
             Upload Dataset
           </h2>
           <p className="text-sm text-[var(--color-text-secondary)] mb-4">
-            Upload a CSV or JSON file to replace the current zone data. The dashboard
-            will immediately reflect your uploaded dataset.
+            Upload a CSV or JSON file to replace the current zone data. The
+            dashboard will immediately reflect your uploaded dataset.
           </p>
 
           {/* Drag-and-drop area */}
@@ -109,7 +149,10 @@ export function UploadPage() {
                 ? "border-[var(--color-accent)] bg-[var(--color-accent-muted)]"
                 : "border-[var(--color-border)] hover:border-[var(--color-accent)]"
             }`}
-            onDragOver={(e) => { e.preventDefault(); setDragActive(true); }}
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDragActive(true);
+            }}
             onDragLeave={() => setDragActive(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
@@ -135,7 +178,10 @@ export function UploadPage() {
               aria-hidden="true"
             />
             <div className="flex justify-center gap-3 mb-3">
-              <FileSpreadsheet size={28} className="text-[var(--color-text-muted)]" />
+              <FileSpreadsheet
+                size={28}
+                className="text-[var(--color-text-muted)]"
+              />
               <FileJson size={28} className="text-[var(--color-text-muted)]" />
             </div>
             <p className="text-sm text-[var(--color-text-secondary)]">
@@ -145,12 +191,17 @@ export function UploadPage() {
                 </span>
               ) : (
                 <>
-                  Drop a <strong>.csv</strong> or <strong>.json</strong> file here, or{" "}
-                  <span className="text-[var(--color-accent)] underline">browse</span>
+                  Drop a <strong>.csv</strong> or <strong>.json</strong> file
+                  here, or{" "}
+                  <span className="text-[var(--color-accent)] underline">
+                    browse
+                  </span>
                 </>
               )}
             </p>
-            <p className="text-xs text-[var(--color-text-muted)] mt-1">Max 10 MB</p>
+            <p className="text-xs text-[var(--color-text-muted)] mt-1">
+              Max 10 MB
+            </p>
           </div>
 
           {/* Reset button */}
@@ -160,7 +211,10 @@ export function UploadPage() {
               disabled={resetting}
               className="flex items-center gap-1.5 text-xs text-[var(--color-text-secondary)] hover:text-[var(--color-accent)] transition-colors bg-transparent border-none cursor-pointer disabled:opacity-50"
             >
-              <RefreshCw size={14} className={resetting ? "animate-spin" : ""} />
+              <RefreshCw
+                size={14}
+                className={resetting ? "animate-spin" : ""}
+              />
               Reset to synthetic data
             </button>
           </div>
@@ -169,12 +223,22 @@ export function UploadPage() {
         {/* Result Banner */}
         {error && (
           <div className="flex items-start gap-3 p-4 rounded-xl bg-[var(--color-severity-high-bg)] border border-[var(--color-severity-high)]">
-            <AlertTriangle size={18} className="text-[var(--color-severity-high)] flex-shrink-0 mt-0.5" />
+            <AlertTriangle
+              size={18}
+              className="text-[var(--color-severity-high)] flex-shrink-0 mt-0.5"
+            />
             <div>
-              <p className="text-sm font-medium text-[var(--color-severity-high)]">Upload Failed</p>
-              <p className="text-xs text-[var(--color-text-secondary)] mt-1">{error}</p>
+              <p className="text-sm font-medium text-[var(--color-severity-high)]">
+                Upload Failed
+              </p>
+              <p className="text-xs text-[var(--color-text-secondary)] mt-1">
+                {error}
+              </p>
             </div>
-            <button onClick={() => setError(null)} className="ml-auto text-[var(--color-text-muted)]">
+            <button
+              onClick={() => setError(null)}
+              className="ml-auto text-[var(--color-text-muted)]"
+            >
               <X size={16} />
             </button>
           </div>
@@ -189,17 +253,26 @@ export function UploadPage() {
             }`}
           >
             {result.success ? (
-              <CheckCircle size={18} className="text-[var(--color-severity-low)] flex-shrink-0 mt-0.5" />
+              <CheckCircle
+                size={18}
+                className="text-[var(--color-severity-low)] flex-shrink-0 mt-0.5"
+              />
             ) : (
-              <AlertTriangle size={18} className="text-[var(--color-severity-high)] flex-shrink-0 mt-0.5" />
+              <AlertTriangle
+                size={18}
+                className="text-[var(--color-severity-high)] flex-shrink-0 mt-0.5"
+              />
             )}
             <div className="flex-1">
-              <p className={`text-sm font-medium ${result.success ? "text-[var(--color-severity-low)]" : "text-[var(--color-severity-high)]"}`}>
+              <p
+                className={`text-sm font-medium ${result.success ? "text-[var(--color-severity-low)]" : "text-[var(--color-severity-high)]"}`}
+              >
                 {result.message}
               </p>
               {result.filename && (
                 <p className="text-xs text-[var(--color-text-muted)] mt-1">
-                  File: {result.filename} · {result.rowsAccepted} accepted · {result.rowsRejected} rejected
+                  File: {result.filename} · {result.rowsAccepted} accepted ·{" "}
+                  {result.rowsRejected} rejected
                 </p>
               )}
 
@@ -210,14 +283,26 @@ export function UploadPage() {
                     Validation Errors:
                   </p>
                   <ul className="space-y-1">
-                    {result.errors.map((err: UploadValidationError, i: number) => (
-                      <li key={i} className="text-xs text-[var(--color-text-secondary)]">
-                        Row {err.row}, field <code className="text-[var(--color-accent)]">{err.field}</code>: {err.message}
-                        {err.value && (
-                          <span className="text-[var(--color-text-muted)]"> (value: "{err.value}")</span>
-                        )}
-                      </li>
-                    ))}
+                    {result.errors.map(
+                      (err: UploadValidationError, i: number) => (
+                        <li
+                          key={i}
+                          className="text-xs text-[var(--color-text-secondary)]"
+                        >
+                          Row {err.row}, field{" "}
+                          <code className="text-[var(--color-accent)]">
+                            {err.field}
+                          </code>
+                          : {err.message}
+                          {err.value && (
+                            <span className="text-[var(--color-text-muted)]">
+                              {" "}
+                              (value: "{err.value}")
+                            </span>
+                          )}
+                        </li>
+                      ),
+                    )}
                   </ul>
                 </div>
               )}
@@ -254,9 +339,13 @@ export function UploadPage() {
                     </td>
                     <td className="py-2 pr-4">
                       {field.required ? (
-                        <span className="text-xs text-[var(--color-severity-moderate)]">Yes</span>
+                        <span className="text-xs text-[var(--color-severity-moderate)]">
+                          Yes
+                        </span>
                       ) : (
-                        <span className="text-xs text-[var(--color-text-muted)]">No</span>
+                        <span className="text-xs text-[var(--color-text-muted)]">
+                          No
+                        </span>
                       )}
                     </td>
                     <td className="py-2 text-xs text-[var(--color-text-secondary)]">
@@ -275,7 +364,7 @@ export function UploadPage() {
                 CSV Example
               </h3>
               <pre className="text-xs font-mono bg-[var(--color-bg-primary)] rounded-lg p-3 overflow-x-auto text-[var(--color-text-secondary)]">
-{`zone_id,timestamp,crowd_density,heat_index,entry_rate
+                {`zone_id,timestamp,crowd_density,heat_index,entry_rate
 zone-a,2026-07-10T14:30:00Z,72.5,38.2,25.0
 zone-b,2026-07-10T14:30:00Z,45.0,41.0,12.0
 zone-c,2026-07-10T14:30:00Z,88.0,39.5,35.0`}
@@ -286,7 +375,7 @@ zone-c,2026-07-10T14:30:00Z,88.0,39.5,35.0`}
                 JSON Example
               </h3>
               <pre className="text-xs font-mono bg-[var(--color-bg-primary)] rounded-lg p-3 overflow-x-auto text-[var(--color-text-secondary)]">
-{`[
+                {`[
   {
     "zone_id": "zone-a",
     "timestamp": "2026-07-10T14:30:00Z",

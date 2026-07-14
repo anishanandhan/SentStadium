@@ -8,6 +8,7 @@ def test_health_check(client: TestClient) -> None:
     assert data["status"] == "healthy"
     assert data["service"] == "stadiumpulse"
 
+
 def test_security_headers(client: TestClient) -> None:
     response = client.get("/api/health")
     assert response.status_code == 200
@@ -15,6 +16,7 @@ def test_security_headers(client: TestClient) -> None:
     assert response.headers["X-Frame-Options"] == "DENY"
     assert "Strict-Transport-Security" in response.headers
     assert "Content-Security-Policy" in response.headers
+
 
 def test_rate_limit(client: TestClient) -> None:
     # Depending on how fast slowapi catches it or how it's configured,

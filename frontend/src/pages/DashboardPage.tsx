@@ -5,12 +5,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  Activity,
-  BarChart3,
-  Upload,
-  Settings,
-} from "lucide-react";
+import { Activity, BarChart3, Upload, Settings } from "lucide-react";
 import { ZoneMap } from "@/components/ZoneMap";
 import { ZoneDetailDrawer } from "@/components/ZoneDetailDrawer";
 import { AlertFeed } from "@/components/AlertFeed";
@@ -24,7 +19,9 @@ export function DashboardPage() {
   const [zones, setZones] = useState<ZoneData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedZoneId, setSelectedZoneId] = useState<string | null>(null);
-  const [connectionStatus, setConnectionStatus] = useState<"live" | "syncing" | "stale">("syncing");
+  const [connectionStatus, setConnectionStatus] = useState<
+    "live" | "syncing" | "stale"
+  >("syncing");
   const [showA11ySettings, setShowA11ySettings] = useState(false);
   const navigate = useNavigate();
 
@@ -109,18 +106,19 @@ export function DashboardPage() {
             <>
               {/* Zone summary bar */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-                <SummaryCard
-                  label="Total Zones"
-                  value={String(zones.length)}
-                />
+                <SummaryCard label="Total Zones" value={String(zones.length)} />
                 <SummaryCard
                   label="Critical"
-                  value={String(zones.filter((z) => z.riskLevel === "critical").length)}
+                  value={String(
+                    zones.filter((z) => z.riskLevel === "critical").length,
+                  )}
                   accent="var(--color-severity-critical)"
                 />
                 <SummaryCard
                   label="High Risk"
-                  value={String(zones.filter((z) => z.riskLevel === "high").length)}
+                  value={String(
+                    zones.filter((z) => z.riskLevel === "high").length,
+                  )}
                   accent="var(--color-severity-high)"
                 />
                 <SummaryCard

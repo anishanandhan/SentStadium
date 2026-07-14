@@ -55,11 +55,35 @@ export function HeroPage() {
         aria-label="Hero banner"
       >
         {/* Animated SVG background */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          aria-hidden="true"
+        >
           <svg viewBox="0 0 800 600" className="w-full h-full">
-            <circle cx="400" cy="300" r="300" fill="none" stroke="currentColor" strokeWidth="1" />
-            <circle cx="400" cy="300" r="200" fill="none" stroke="currentColor" strokeWidth="0.7" />
-            <circle cx="400" cy="300" r="100" fill="none" stroke="currentColor" strokeWidth="0.5" />
+            <circle
+              cx="400"
+              cy="300"
+              r="300"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
+            <circle
+              cx="400"
+              cy="300"
+              r="200"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.7"
+            />
+            <circle
+              cx="400"
+              cy="300"
+              r="100"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="0.5"
+            />
             {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
               <line
                 key={angle}
@@ -75,8 +99,14 @@ export function HeroPage() {
         </div>
 
         {/* Gradient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-accent)] rounded-full opacity-[0.04] blur-[120px]" aria-hidden="true" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[var(--color-severity-critical)] rounded-full opacity-[0.03] blur-[100px]" aria-hidden="true" />
+        <div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-[var(--color-accent)] rounded-full opacity-[0.04] blur-[120px]"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[var(--color-severity-critical)] rounded-full opacity-[0.03] blur-[100px]"
+          aria-hidden="true"
+        />
 
         <div className="relative z-10 max-w-4xl text-center">
           {/* Logo */}
@@ -96,8 +126,8 @@ export function HeroPage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto mb-10 leading-relaxed">
-            A GenAI reasoning layer that fuses heat and crowd data to predict — and explain —
-            safety risk before it happens.
+            A GenAI reasoning layer that fuses heat and crowd data to predict —
+            and explain — safety risk before it happens.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -120,7 +150,10 @@ export function HeroPage() {
       </section>
 
       {/* ====== SECTION B: The Problem ====== */}
-      <section className="px-6 py-20 max-w-6xl mx-auto" aria-label="The problem">
+      <section
+        className="px-6 py-20 max-w-6xl mx-auto"
+        aria-label="The problem"
+      >
         <h2 className="text-3xl font-bold font-[var(--font-family-display)] text-center text-[var(--color-text-primary)] mb-12">
           The problem is not hypothetical — it is happening <em>right now</em>
         </h2>
@@ -194,12 +227,16 @@ export function HeroPage() {
       </section>
 
       {/* ====== SECTION D: Explainability Preview ====== */}
-      <section className="px-6 py-20 max-w-4xl mx-auto" aria-label="Explainability preview">
+      <section
+        className="px-6 py-20 max-w-4xl mx-auto"
+        aria-label="Explainability preview"
+      >
         <h2 className="text-3xl font-bold font-[var(--font-family-display)] text-center text-[var(--color-text-primary)] mb-4">
           Explainability First
         </h2>
         <p className="text-sm text-[var(--color-text-secondary)] text-center mb-10 max-w-2xl mx-auto">
-          Every recommendation comes with a visible &quot;why&quot; trail. Here&apos;s what control room staff actually see:
+          Every recommendation comes with a visible &quot;why&quot; trail.
+          Here&apos;s what control room staff actually see:
         </p>
 
         <div className="glass-card p-6 max-w-3xl mx-auto">
@@ -232,7 +269,9 @@ export function HeroPage() {
               <h3 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                 AI Output
               </h3>
-              <SeverityBadge severity={EXPLAINABILITY_EXAMPLE.output.severity} />
+              <SeverityBadge
+                severity={EXPLAINABILITY_EXAMPLE.output.severity}
+              />
             </div>
             <p className="text-sm text-[var(--color-text-primary)] font-medium mb-3">
               {EXPLAINABILITY_EXAMPLE.output.recommendation}
@@ -259,10 +298,11 @@ export function HeroPage() {
             Built for the 4-minute safety call
           </h2>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-            StadiumPulse is not another wayfinding chatbot for fans — it&apos;s the reasoning
-            layer for the people making the 4-minute safety call. Designed for control room
-            operators, venue safety officers, and event organizers who need to act on
-            compounding risk signals before they become incidents.
+            StadiumPulse is not another wayfinding chatbot for fans — it&apos;s
+            the reasoning layer for the people making the 4-minute safety call.
+            Designed for control room operators, venue safety officers, and
+            event organizers who need to act on compounding risk signals before
+            they become incidents.
           </p>
         </div>
       </section>
@@ -295,26 +335,36 @@ export function HeroPage() {
             Sources
           </h2>
           <p className="text-xs text-[var(--color-text-muted)] mb-4">
-            This project is grounded in verified, current reporting on the 2026 FIFA World Cup
-            and established stadium-safety research, not hypothetical scenarios.
+            This project is grounded in verified, current reporting on the 2026
+            FIFA World Cup and established stadium-safety research, not
+            hypothetical scenarios.
           </p>
           <ol className="space-y-3">
             {SOURCES.map((source: Source, i: number) => (
-              <li key={i} className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-                <span className="font-semibold text-[var(--color-text-primary)]">[{i + 1}]</span>{" "}
+              <li
+                key={i}
+                className="text-xs text-[var(--color-text-secondary)] leading-relaxed"
+              >
+                <span className="font-semibold text-[var(--color-text-primary)]">
+                  [{i + 1}]
+                </span>{" "}
                 {source.claim} —{" "}
-                <span className="text-[var(--color-accent)]">{source.organization}</span>
+                <span className="text-[var(--color-accent)]">
+                  {source.organization}
+                </span>
                 {source.url && (
                   <>
                     {" "}
-                    (<a
+                    (
+                    <a
                       href={source.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[var(--color-accent)] hover:underline"
                     >
                       source
-                    </a>)
+                    </a>
+                    )
                   </>
                 )}
               </li>
@@ -329,7 +379,8 @@ export function HeroPage() {
               </span>
             </div>
             <p className="text-xs text-[var(--color-text-muted)]">
-              HackToSkill Prompt Wars — Challenge 4: Smart Stadiums &amp; Tournament Operations
+              HackToSkill Prompt Wars — Challenge 4: Smart Stadiums &amp;
+              Tournament Operations
             </p>
           </div>
         </div>

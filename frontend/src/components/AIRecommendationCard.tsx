@@ -27,7 +27,9 @@ export function AIRecommendationCard({
       <div className="glass-card p-5">
         <div className="flex items-center gap-2 mb-3">
           <Zap size={18} className="text-[var(--color-accent)]" />
-          <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">AI Recommendation</h3>
+          <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">
+            AI Recommendation
+          </h3>
         </div>
         <div className="skeleton h-4 w-3/4 mb-2" />
         <div className="skeleton h-4 w-1/2 mb-4" />
@@ -41,10 +43,13 @@ export function AIRecommendationCard({
       <div className="glass-card p-5">
         <div className="flex items-center gap-2 mb-3">
           <Zap size={18} className="text-[var(--color-text-muted)]" />
-          <h3 className="text-sm font-semibold text-[var(--color-text-secondary)]">AI Recommendation</h3>
+          <h3 className="text-sm font-semibold text-[var(--color-text-secondary)]">
+            AI Recommendation
+          </h3>
         </div>
         <p className="text-sm text-[var(--color-text-muted)]">
-          No zones exceeding threshold — all clear. Select a zone for detailed analysis.
+          No zones exceeding threshold — all clear. Select a zone for detailed
+          analysis.
         </p>
       </div>
     );
@@ -53,7 +58,9 @@ export function AIRecommendationCard({
   const rec = recommendation;
 
   return (
-    <div className={`glass-card p-5 ${rec.severity === "critical" ? "animate-pulse-critical" : ""}`}>
+    <div
+      className={`glass-card p-5 ${rec.severity === "critical" ? "animate-pulse-critical" : ""}`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
@@ -79,7 +86,9 @@ export function AIRecommendationCard({
 
       {/* Confidence */}
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-xs text-[var(--color-text-muted)]">Confidence:</span>
+        <span className="text-xs text-[var(--color-text-muted)]">
+          Confidence:
+        </span>
         <div className="flex-1 max-w-[120px] h-1.5 rounded-full bg-[var(--color-bg-surface)] overflow-hidden">
           <div
             className="h-full rounded-full bg-[var(--color-accent)] transition-all duration-500"
@@ -141,31 +150,40 @@ export function AIRecommendationCard({
             aria-expanded={showMultilingual}
             aria-controls="multilingual-section"
           >
-            {showMultilingual ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-            Multilingual alert preview ({Object.keys(rec.multilingualAlerts).length} languages)
+            {showMultilingual ? (
+              <ChevronUp size={14} />
+            ) : (
+              <ChevronDown size={14} />
+            )}
+            Multilingual alert preview (
+            {Object.keys(rec.multilingualAlerts).length} languages)
           </button>
           {showMultilingual && (
             <div
               id="multilingual-section"
               className="mt-2 space-y-2 animate-fade-in"
             >
-              {Object.entries(rec.multilingualAlerts).map(([lang, text]: [string, any]) => (
-                <div
-                  key={lang}
-                  className="text-xs bg-[var(--color-bg-primary)] rounded-lg p-3"
-                >
-                  <span className="font-semibold text-[var(--color-accent)] block mb-1">
-                    {LANGUAGE_NAMES[lang] || lang.toUpperCase()}:
-                  </span>
+              {Object.entries(rec.multilingualAlerts).map(
+                ([lang, text]: [string, any]) => (
                   <div
-                    className="text-[var(--color-text-secondary)]"
-                    lang={lang}
-                    dir={["ar", "he", "fa", "ur"].includes(lang) ? "rtl" : "ltr"}
+                    key={lang}
+                    className="text-xs bg-[var(--color-bg-primary)] rounded-lg p-3"
                   >
-                    {text as string}
+                    <span className="font-semibold text-[var(--color-accent)] block mb-1">
+                      {LANGUAGE_NAMES[lang] || lang.toUpperCase()}:
+                    </span>
+                    <div
+                      className="text-[var(--color-text-secondary)]"
+                      lang={lang}
+                      dir={
+                        ["ar", "he", "fa", "ur"].includes(lang) ? "rtl" : "ltr"
+                      }
+                    >
+                      {text as string}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           )}
         </>

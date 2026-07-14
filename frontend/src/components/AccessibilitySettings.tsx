@@ -11,20 +11,21 @@ interface AccessibilitySettingsProps {
 
 export function AccessibilitySettings({ onClose }: AccessibilitySettingsProps) {
   const [highContrast, setHighContrast] = useState(
-    () => document.documentElement.getAttribute("data-high-contrast") === "true"
+    () =>
+      document.documentElement.getAttribute("data-high-contrast") === "true",
   );
   const [fontSize, setFontSize] = useState(() => {
     const stored = localStorage.getItem("sp-font-size");
     return stored ? parseInt(stored, 10) : 100;
   });
   const [reducedMotion, setReducedMotion] = useState(
-    () => localStorage.getItem("sp-reduced-motion") === "true"
+    () => localStorage.getItem("sp-reduced-motion") === "true",
   );
 
   useEffect(() => {
     document.documentElement.setAttribute(
       "data-high-contrast",
-      String(highContrast)
+      String(highContrast),
     );
   }, [highContrast]);
 
@@ -55,7 +56,11 @@ export function AccessibilitySettings({ onClose }: AccessibilitySettingsProps) {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/40 z-50" onClick={onClose} aria-hidden="true" />
+      <div
+        className="fixed inset-0 bg-black/40 z-50"
+        onClick={onClose}
+        aria-hidden="true"
+      />
       <div
         className="fixed right-4 top-16 w-80 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl shadow-lg z-50 animate-fade-in"
         role="dialog"
@@ -116,14 +121,17 @@ export function AccessibilitySettings({ onClose }: AccessibilitySettingsProps) {
 
           {/* Screen Reader Info */}
           <div className="flex items-start gap-3">
-            <Monitor size={16} className="text-[var(--color-text-muted)] mt-0.5" />
+            <Monitor
+              size={16}
+              className="text-[var(--color-text-muted)] mt-0.5"
+            />
             <div>
               <p className="text-sm text-[var(--color-text-primary)] font-medium">
                 Screen Reader Support
               </p>
               <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                All interactive elements have ARIA labels. The alert feed uses aria-live
-                to announce new alerts automatically.
+                All interactive elements have ARIA labels. The alert feed uses
+                aria-live to announce new alerts automatically.
               </p>
             </div>
           </div>
@@ -152,10 +160,15 @@ function ToggleSetting({
     <div className="flex items-start gap-3">
       <span className="text-[var(--color-text-muted)] mt-0.5">{icon}</span>
       <div className="flex-1">
-        <label htmlFor={id} className="text-sm text-[var(--color-text-primary)] font-medium cursor-pointer">
+        <label
+          htmlFor={id}
+          className="text-sm text-[var(--color-text-primary)] font-medium cursor-pointer"
+        >
           {label}
         </label>
-        <p className="text-xs text-[var(--color-text-muted)] mt-0.5">{description}</p>
+        <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+          {description}
+        </p>
       </div>
       <button
         id={id}

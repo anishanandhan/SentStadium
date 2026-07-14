@@ -131,9 +131,7 @@ class TestSyntheticDataGenerator:
         updated = gen.tick(zones)
         assert len(updated) == len(zones)
         # At least some values should change
-        changes = sum(
-            1 for a, b in zip(zones, updated, strict=True) if a.crowd_density != b.crowd_density
-        )
+        changes = sum(1 for a, b in zip(zones, updated, strict=True) if a.crowd_density != b.crowd_density)
         assert changes > 0
 
     def test_risk_level_computation_boundaries(self) -> None:

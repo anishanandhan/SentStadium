@@ -114,7 +114,6 @@ class GeminiService:
         heat = ri.heat_index
         has_shade = ri.has_shade
 
-
         severity = self._classify_severity(density, heat)
 
         # Build contextual reasoning based on actual signals
@@ -139,10 +138,7 @@ class GeminiService:
                 f"{'heat index' if heat > 34 else 'crowd density'} is approaching "
                 f"intervention threshold."
             ),
-            "low": (
-                f"{ri.zone_name} is operating within safe parameters "
-                f"— maintain routine monitoring."
-            ),
+            "low": (f"{ri.zone_name} is operating within safe parameters — maintain routine monitoring."),
         }
 
         # Contextual reasoning chain
