@@ -474,24 +474,27 @@ export async function uploadData(file: File): Promise<UploadResult> {
   const formData = new FormData();
   formData.append("file", file);
 
+  let response: Response;
   try {
-    const response = await fetch(`${API_BASE}/api/data/upload`, {
+    response = await fetch(`${API_BASE}/api/data/upload`, {
       method: "POST",
       body: formData,
     });
-
-    if (!response.ok) {
-      const error = await response.text();
-      throw new Error(`Upload error ${response.status}: ${error}`);
-    }
-
-    const data: unknown = await response.json();
-    return toCamelCase<UploadResult>(data);
-  } catch (err) {
-    console.warn("Upload failed. Switching to Local Demo Mock Mode.", err);
+  } catch (networkErr) {
+    // Genuine network failure (no connectivity) → fall back to mock
+    console.warn("Upload network error. Switching to Local Demo Mock Mode.", networkErr);
     isUsingMockFallback = true;
     return handleMockRequest<UploadResult>("/api/data/upload");
   }
+
+  if (!response.ok) {
+    // HTTP error (4xx/5xx) → surface the real server message to the UI
+    const errorText = await response.text();
+    throw new Error(errorText || `Upload error ${response.status}`);
+  }
+
+  const data: unknown = await response.json();
+  return toCamelCase<UploadResult>(data);
 }
 
 /**
