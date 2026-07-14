@@ -213,7 +213,7 @@ class GeminiService:
         # Generate multilingual alerts for EXACTLY the languages present
         multilingual = self._build_multilingual_alerts(ri, severity)
 
-        confidence = round(random.uniform(0.7, 0.95), 2)
+        confidence = round(random.uniform(0.7, 0.95), 2)  # nosec B311
 
         return ReasoningOutput(
             zone_id=ri.zone_id,

@@ -103,7 +103,7 @@ class SyntheticDataGenerator:
     """Generates realistic, randomized stadium zone data."""
 
     def __init__(self, seed: int | None = None) -> None:
-        self._rng = random.Random(seed)
+        self._rng = random.Random(seed)  # nosec B311
         self._base_time = datetime.now(UTC)
 
     def generate_zones(self) -> list[ZoneData]:

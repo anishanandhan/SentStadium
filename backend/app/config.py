@@ -16,7 +16,7 @@ class Settings:
     debug: bool = False
 
     # Server
-    host: str = "0.0.0.0"
+    host: str = "0.0.0.0"  # nosec B104
     port: int = 8000
     cors_origins: list[str] = field(default_factory=lambda: ["http://localhost:5173"])
 
