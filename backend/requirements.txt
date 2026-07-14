@@ -12,6 +12,6 @@ orjson>=3.11.6
 # Dev / Quality
 ruff==0.11.13
 mypy==1.16.1
-pytest>=9.0.3
+pytest>=9.1.1
 pytest-cov==6.2.1
 pytest-asyncio
