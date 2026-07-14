@@ -9,11 +9,11 @@
 /* --- Custom Theme (Tailwind v4 CSS-first config) --- */
 @theme {
   /* Colors — Dark Mode Control Room Palette */
-  --color-bg-primary: #0f172a;
-  --color-bg-secondary: #1e293b;
-  --color-bg-elevated: #1e293b;
-  --color-bg-surface: #334155;
-  --color-bg-hover: #475569;
+  --color-bg-primary: #07090e;
+  --color-bg-secondary: #0d111b;
+  --color-bg-elevated: #131926;
+  --color-bg-surface: #1e2638;
+  --color-bg-hover: #29344c;
 
   --color-text-primary: #f8fafc;
   --color-text-secondary: #cbd5e1;
@@ -35,12 +35,12 @@
   --color-severity-critical-bg: hsl(350 50% 12%);
 
   /* Borders */
-  --color-border: hsl(220 14% 22%);
-  --color-border-hover: hsl(220 14% 32%);
+  --color-border: hsl(222 25% 15%);
+  --color-border-hover: hsl(222 25% 25%);
 
   /* Glassmorphism */
-  --color-glass: hsl(220 18% 12% / 0.85);
-  --color-glass-border: hsl(220 14% 30% / 0.5);
+  --color-glass: hsl(222 25% 10% / 0.8);
+  --color-glass-border: hsl(222 25% 22% / 0.5);
 
   /* Typography */
   --font-family-display: "Plus Jakarta Sans", system-ui, sans-serif;
