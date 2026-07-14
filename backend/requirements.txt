@@ -4,7 +4,7 @@ pydantic==2.11.4
 python-multipart>=0.0.31
 google-genai==1.16.1
 firebase-admin==6.8.0
-structlog==25.4.0
+structlog==26.1.0
 slowapi==0.1.9
 httpx==0.28.1
 orjson>=3.11.6
