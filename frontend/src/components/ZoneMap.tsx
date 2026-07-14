@@ -53,24 +53,26 @@ export function ZoneMap({ zones, selectedZoneId, onZoneSelect }: ZoneMapProps) {
         />
 
         {/* Field center */}
-        <ellipse
-          cx="300"
-          cy="210"
-          rx="80"
-          ry="50"
+        <rect
+          x="210"
+          y="170"
+          width="180"
+          height="80"
+          rx="8"
           fill="var(--color-severity-low)"
-          fillOpacity="0.05"
+          fillOpacity="0.04"
           stroke="var(--color-border)"
-          strokeWidth="1"
+          strokeWidth="1.5"
           strokeDasharray="4 4"
         />
         <text
           x="300"
-          y="215"
+          y="214"
           textAnchor="middle"
           fill="var(--color-text-muted)"
           fontSize="11"
           fontFamily="var(--font-family-body)"
+          letterSpacing="2"
         >
           PITCH
         </text>

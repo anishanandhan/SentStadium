@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 /* ============================================================================
@@ -20,9 +20,9 @@
   --color-text-muted: #94a3b8;
   --color-text-inverse: #020617;
 
-  --color-accent: hsl(200 90% 55%);
-  --color-accent-hover: hsl(200 90% 65%);
-  --color-accent-muted: hsl(200 60% 25%);
+  --color-accent: hsl(262 85% 62%);
+  --color-accent-hover: hsl(262 85% 72%);
+  --color-accent-muted: hsl(262 50% 22%);
 
   /* Severity Colors */
   --color-severity-low: hsl(145 65% 45%);
@@ -39,11 +39,11 @@
   --color-border-hover: hsl(220 14% 32%);
 
   /* Glassmorphism */
-  --color-glass: hsl(220 18% 14% / 0.8);
+  --color-glass: hsl(220 18% 12% / 0.85);
   --color-glass-border: hsl(220 14% 30% / 0.5);
 
   /* Typography */
-  --font-family-display: "Outfit", system-ui, sans-serif;
+  --font-family-display: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-family-body: "Inter", system-ui, sans-serif;
   --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
 

@@ -57,14 +57,14 @@ export function HeroPage() {
         {/* Animated SVG background */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" aria-hidden="true">
           <svg viewBox="0 0 800 600" className="w-full h-full">
-            <ellipse cx="400" cy="300" rx="350" ry="250" fill="none" stroke="currentColor" strokeWidth="1" />
-            <ellipse cx="400" cy="300" rx="250" ry="170" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            <ellipse cx="400" cy="300" rx="150" ry="100" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            {[0, 60, 120, 180, 240, 300].map((angle) => (
+            <circle cx="400" cy="300" r="300" fill="none" stroke="currentColor" strokeWidth="1" />
+            <circle cx="400" cy="300" r="200" fill="none" stroke="currentColor" strokeWidth="0.7" />
+            <circle cx="400" cy="300" r="100" fill="none" stroke="currentColor" strokeWidth="0.5" />
+            {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
               <line
                 key={angle}
-                x1={400 + 350 * Math.cos((angle * Math.PI) / 180)}
-                y1={300 + 250 * Math.sin((angle * Math.PI) / 180)}
+                x1={400 + 300 * Math.cos((angle * Math.PI) / 180)}
+                y1={300 + 300 * Math.sin((angle * Math.PI) / 180)}
                 x2="400"
                 y2="300"
                 stroke="currentColor"
@@ -90,7 +90,7 @@ export function HeroPage() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-[var(--font-family-display)] text-[var(--color-text-primary)] leading-tight mb-6">
             Two systems. One blind spot.
             <br />
-            <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-severity-moderate)] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--color-accent)] to-[#38bdf8] bg-clip-text text-transparent">
               StadiumPulse connects them.
             </span>
           </h1>
